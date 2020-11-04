@@ -109,9 +109,30 @@ void DisplayManager::DrawSetupMode()
 
         u8g2->setDrawColor(1);
         u8g2->setCursor(0, 20);
-        u8g2->print("Open App, and configure");
+        u8g2->print("Open App, configure");
         u8g2->setCursor(0, 32);
         u8g2->print("Wifi settings via BLE");
+    } while (u8g2->nextPage());
+}
+
+void DisplayManager::DrawSetupFinish()
+{
+    u8g2->setFont(u8g2_font_profont12_mf);
+    u8g2->setFontDirection(0);
+    u8g2->firstPage();
+    do
+    {
+        u8g2->setFontMode(0);
+        u8g2->setDrawColor(0);
+
+        u8g2->setCursor(25, 9);
+        u8g2->print(" Setup Mode ");
+
+        u8g2->setDrawColor(1);
+        u8g2->setCursor(0, 21);
+        u8g2->print("Setup Done!! Turn");
+        u8g2->setCursor(0, 32);
+        u8g2->print("switch and repower.");
     } while (u8g2->nextPage());
 }
 

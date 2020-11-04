@@ -5,6 +5,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
+#include <cstring>
 #include "time.h"
 #include "GpioManager.h"
 #include "DisplayManager.h"
@@ -30,7 +31,7 @@ public:
     void connectWifi();
     void setupNTP();
     bool getNTPTime(char *str_dt, uint8_t str_c);
-    void enterConfigMode();
+    void setWifiConfig(const char *ssid, const char *pass);
 
 private:
     WIFI_CONFIG wifi_config;

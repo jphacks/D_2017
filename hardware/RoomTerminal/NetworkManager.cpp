@@ -8,6 +8,10 @@ void NetworkManager::NetworkInit(GpioManager *gpioManager, DisplayManager *displ
 
     // Read Wifi settings from EEPROM
     loadWifiConfig(&wifi_config);
+    Serial.print("SSID : ");
+    Serial.println(wifi_config.ssid);
+    Serial.print("PASS : ");
+    Serial.println(wifi_config.pass);
 }
 
 void NetworkManager::connectWifi()
@@ -50,56 +54,22 @@ bool NetworkManager::getNTPTime(char *str_dt, uint8_t str_c)
     strftime(str_dt, str_c,
              "%Y-%m-%dT%H:%M:%S+09:00", &timeinfo);
 
-    Serial.print("[Info] Current Time : ");
-    Serial.println(str_dt);
+    // Serial.print("[Info] Current Time : ");
+    // Serial.println(str_dt);
 
     return true;
 }
 
-void NetworkManager::enterConfigMode()
+void NetworkManager::setWifiConfig(const char *ssid, const char *pass)
 {
-    displayMan->DrawSetupMode();
-    loadWifiConfig(&wifi_config);
-
-    while (true)
-    {
-        Serial.println("=== SetupMode ===");
-        Serial.println("[ Current Settings ]");
-        Serial.printf(" * SSID : '%s'\n", wifi_config.ssid);
-        Serial.printf(" * PASS : '******'\n");
-        Serial.printf(" * NTP  : '%s'\n", wifi_config.ntps);
-        Serial.printf(" * API  : '%s'\n", wifi_config.apis);
-        Serial.println("");
-
-        Serial.print("Would you like to change settings? [y/n] : ");
-        char ret[2];
-        readUARTnoTimeout(ret, 1, true);
-        if (ret[0] != 'y' && ret[0] != 'Y')
-            continue;
-
-        Serial.println();
-        Serial.print("SSID > ");
-        readUARTnoTimeout(wifi_config.ssid, SSID_MAX_LEN, true);
-
-        Serial.println();
-        Serial.print("PASS > ");
-        readUARTnoTimeout(wifi_config.pass, PASS_MAX_LEN, true);
-
-        Serial.println();
-        Serial.print("NTP  > ");
-        readUARTnoTimeout(wifi_config.ntps, NTPS_MAX_LEN, true);
-
-        Serial.println();
-        Serial.print("API  > ");
-        readUARTnoTimeout(wifi_config.apis, APIS_MAX_LEN, true);
-
-        break;
-    }
+    // c++のstring世界からCのchar配列の世界へ持ってくる
+    std::strcpy(wifi_config.ssid, ssid);
+    std::strcpy(wifi_config.pass, pass);
+    // 決め打ちntp&API設定
+    std::strcpy(wifi_config.ntps, "ntp.nict.jp");
+    std::strcpy(wifi_config.apis, "");
 
     storeWifiConfig(wifi_config);
-
-    Serial.println();
-    Serial.println("[OK] Settings were saved. Please switch CONF-SW.");
 }
 
 void NetworkManager::loadWifiConfig(WIFI_CONFIG *buf)
@@ -111,33 +81,4 @@ void NetworkManager::storeWifiConfig(WIFI_CONFIG buf)
 {
     EEPROM.put<WIFI_CONFIG>(0, buf);
     EEPROM.commit();
-}
-
-void NetworkManager::readUARTnoTimeout(char *buf, int max_length, bool repeat)
-{
-    int i = 0;
-    char my_buf[max_length + 1];
-
-    while (true)
-    {
-        if (Serial.available() > 0)
-        {
-            my_buf[i] = Serial.read();
-
-            if (i >= max_length || my_buf[i] == '\n')
-            {
-                my_buf[i] = '\0';
-                break;
-            }
-            else
-            {
-                if (repeat)
-                    Serial.print(my_buf[i]);
-            }
-
-            i++;
-        }
-    }
-
-    strcpy(buf, my_buf);
 }

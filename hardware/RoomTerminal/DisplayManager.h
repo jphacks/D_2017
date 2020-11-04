@@ -17,6 +17,7 @@ public:
     void DrawWaitCard(char *dt_str);
     void DrawCardInfo(char *idm);
     void DrawSetupMode();
+    void DrawSetupFinish();
     void DrawWifiError();
     void DrawNTPError();
 private:

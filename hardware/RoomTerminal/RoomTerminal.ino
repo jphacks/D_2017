@@ -2,6 +2,7 @@
 #include "NFCReader.h"
 #include "NetworkManager.h"
 #include "DisplayManager.h"
+#include "BLEWifiConfigure.h"
 #include <U8g2lib.h>
 #include <Wire.h>
 #include <Arduino.h>
@@ -22,6 +23,7 @@ GpioManager gpioMan;
 NFCReader nfcReader;
 NetworkManager netMan;
 DisplayManager dispMan;
+BLEWifiConfigure bleWifiConf;
 
 char localtime_str[30];
 
@@ -34,6 +36,7 @@ void setup()
   dispMan.DisplayInit(&oled, &gpioMan);
   nfcReader.NFCInit(&gpioMan, &dispMan);
   netMan.NetworkInit(&gpioMan, &dispMan);
+  bleWifiConf.BLEWifiConfigureInit(&gpioMan, &dispMan, &netMan);
 
   Serial.println("JPHACKS2020 NFC Program.");
   dispMan.DrawSplashScreen("1.1.0");
@@ -42,7 +45,9 @@ void setup()
   // Conf Mode Check
   if (gpioMan.isConfMode())
   {
-    netMan.enterConfigMode();
+    bleWifiConf.enterConfigMode();
+    while (true)
+      ;
   }
 
   // Connect to Wifi
@@ -52,12 +57,6 @@ void setup()
 
 void loop()
 {
-  // Conf Mode Check
-  if (gpioMan.isConfMode())
-  {
-    netMan.enterConfigMode();
-  }
-
   // NTP
   if (!netMan.getNTPTime(localtime_str, 30))
     showNTPError();
