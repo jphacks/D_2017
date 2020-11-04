@@ -26,7 +26,9 @@ func (logic *quickTestAuthLogic) handle(userID string) (*response.QuickTestRespo
 		return nil, err
 	}
 
+	fmt.Println("UserID: " + userID)
+
 	return &response.QuickTestResponse{
-		Message: fmt.Sprintf("Hello, cers %s(%s)\nWith: %s", version.Name, version.CreatedAt, userID),
+		Message: fmt.Sprintf("Hello, cers %s(%s) with: %s", version.Name, version.CreatedAt, userID),
 	}, nil
 }
