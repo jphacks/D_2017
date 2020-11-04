@@ -8,8 +8,8 @@ import (
 	_ "github.com/go-sql-driver/mysql" // グローバル設定を宣言(DBドライバの設定)
 )
 
-// HandleRequest - リクエストのハンドラ
-func HandleRequest() (response.QuickTestResponse, error) {
+// QuickTestHandleRequest - リクエストのハンドラ
+func QuickTestHandleRequest() (response.QuickTestResponse, error) {
 	logic := newQuickTestLogic(repository.NewVersionRepository())
 	res, err := logic.handle()
 	if err != nil {
@@ -20,5 +20,5 @@ func HandleRequest() (response.QuickTestResponse, error) {
 }
 
 func main() {
-	lambda.Start(HandleRequest)
+	lambda.Start(QuickTestHandleRequest)
 }

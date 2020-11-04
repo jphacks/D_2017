@@ -28,14 +28,14 @@ func newMockVersionRepository() repository.VersionRepositoryInterface {
 }
 
 func TestHandle(t *testing.T) {
-	logic := newQuickTestLogic(newMockVersionRepository())
-	res, err := logic.handle()
+	logic := newQuickTestAuthLogic(newMockVersionRepository())
+	res, err := logic.handle("test_user")
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	expect := response.QuickTestResponse{
-		Message: "Hello, cers test_version(2014-12-31 12:13:24 +0000 UTC)",
+		Message: "Hello, cers test_version(2014-12-31 12:13:24 +0000 UTC)\nWith: test_user",
 	}
 
 	if res.Message != expect.Message {
