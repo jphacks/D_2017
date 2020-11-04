@@ -2,6 +2,6 @@ name: 'Go Test Action'
 runs:
   using: "composite"
   steps:
-    - run: find . -name '*_test.go' | xargs -I {} sh -c 'cd `dirname {}` && go test .'
+    - run: find . -name '*_test.go' | xargs -I {} sh -c 'cd `dirname {}` && go get -v -t -d && go test .'
       shell: sh
-      working-directory: /
+      #      working-directory: ./
