@@ -20,7 +20,6 @@ type CardRepositoryInterface interface {
 }
 
 type cardRepository struct {
-	db *db
 }
 
 // NewCardRepository - リポジトリを初期化
