@@ -8,10 +8,10 @@ void NetworkManager::NetworkInit(GpioManager *gpioManager, DisplayManager *displ
 
     // Read Wifi settings from EEPROM
     loadWifiConfig(&wifi_config);
-    Serial.print("SSID : ");
+    Serial.print("[Info] SSID : ");
     Serial.println(wifi_config.ssid);
-    Serial.print("PASS : ");
-    Serial.println(wifi_config.pass);
+    // Serial.print("[Info] PASS : ");
+    // Serial.println(wifi_config.pass);
 }
 
 void NetworkManager::connectWifi()
@@ -20,7 +20,7 @@ void NetworkManager::connectWifi()
     uint32_t check_count = 0;
     WiFi.begin(wifi_config.ssid, wifi_config.pass);
 
-    Serial.print("Connecting to ");
+    Serial.print("[Info] Connecting to ");
     Serial.print(wifi_config.ssid);
     gpioMan->setLEDColor(GpioManager::Color::GREEN, 500);
     displayMan->DrawWifiConnection(wifi_config.ssid);
