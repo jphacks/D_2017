@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS `version` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `index2` (`created_at` ASC));
