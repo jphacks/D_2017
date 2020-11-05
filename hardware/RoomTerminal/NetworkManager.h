@@ -4,9 +4,9 @@
 #include <EEPROM.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
-#include <ArduinoJson.h>
+#include <NTPClient.h>
+#include <AWSGreenGrassIoT.h>
 #include <cstring>
-#include "time.h"
 #include "GpioManager.h"
 #include "DisplayManager.h"
 #include "NFCReader.h"
@@ -15,6 +15,12 @@
 #define PASS_MAX_LEN 63
 #define NTPS_MAX_LEN 128
 #define APIS_MAX_LEN 256
+
+extern const char aws_root_ca[];
+extern const char thingCA[];
+extern const char thingKey[];
+extern const char AWSIOTURL[];
+extern const char THING[];
 
 class NetworkManager
 {
@@ -31,12 +37,19 @@ public:
     void connectWifi();
     void setupNTP();
     bool getNTPTime(char *str_dt, uint8_t str_c);
+    bool setupIoTCore();
+    bool isIoTCoreConnected();
     void setWifiConfig(const char *ssid, const char *pass);
 
 private:
     WIFI_CONFIG wifi_config;
     GpioManager *gpioMan;
     DisplayManager *displayMan;
+
+    // AWS GreenGrass IoT Core
+    WiFiUDP ntpUDP;
+    NTPClient *timeClient;
+    AWSGreenGrassIoT *greengrass;
 
     void loadWifiConfig(WIFI_CONFIG *buf);
     void storeWifiConfig(WIFI_CONFIG buf);

@@ -53,13 +53,24 @@ void setup()
   // Connect to Wifi
   netMan.connectWifi();
   netMan.setupNTP();
+  netMan.setupIoTCore();
 }
 
 void loop()
 {
   // NTP
-  if (!netMan.getNTPTime(localtime_str, 30))
+  if (!netMan.getNTPTime(localtime_str, 30)) {
     showNTPError();
+    delay(5000);
+    netMan.setupNTP();
+  }
+  
+  // Check AWS IoT Core Connection
+  if (!netMan.isIoTCoreConnected()) {
+    showIoTCoreError();
+    delay(5000);
+    netMan.setupIoTCore();
+  }
 
   // New Arriving Card Process
   if (nfcReader.readCard())
@@ -95,5 +106,12 @@ void showWifiError()
 {
   Serial.println("=== Wifi Discon. ===");
   dispMan.DrawWifiError();
+  gpioMan.ringBuzzer(2000);
+}
+
+void showIoTCoreError()
+{
+  Serial.println("=== AWS FAILED. ===");
+  dispMan.DrawIoTCoreError();
   gpioMan.ringBuzzer(2000);
 }

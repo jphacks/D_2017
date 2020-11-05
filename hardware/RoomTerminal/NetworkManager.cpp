@@ -40,24 +40,37 @@ void NetworkManager::connectWifi()
 
 void NetworkManager::setupNTP()
 {
-    const long gmtOffset_sec = 9 * 3600;
-    const int daylightOffset_sec = 0;
-    configTime(gmtOffset_sec, daylightOffset_sec, wifi_config.ntps);
+    timeClient = new NTPClient(ntpUDP, wifi_config.ntps, 32400, 60000);
+    timeClient->begin();
 }
 
 bool NetworkManager::getNTPTime(char *str_dt, uint8_t str_c)
 {
-    struct tm timeinfo;
-    if (!getLocalTime(&timeinfo))
-        return false;
+    timeClient->update();
 
-    strftime(str_dt, str_c,
-             "%Y-%m-%dT%H:%M:%S+09:00", &timeinfo);
-
-    // Serial.print("[Info] Current Time : ");
-    // Serial.println(str_dt);
+    timeClient->getFormattedTime().toCharArray(str_dt, str_c);
+    // Serial.println(timeClient->getFormattedTime());
 
     return true;
+}
+
+bool NetworkManager::setupIoTCore()
+{
+    displayMan->DrawWaitIoTCore();
+
+    greengrass = new AWSGreenGrassIoT(AWSIOTURL, THING, aws_root_ca, thingCA, thingKey);
+    if (!greengrass->connectToIoTCore())
+    {
+        return false;
+    }
+
+    Serial.println("[Info] Connected to AWS IoT core");
+    return true;
+}
+
+bool NetworkManager::isIoTCoreConnected()
+{
+    return greengrass->isConnected();
 }
 
 void NetworkManager::setWifiConfig(const char *ssid, const char *pass)

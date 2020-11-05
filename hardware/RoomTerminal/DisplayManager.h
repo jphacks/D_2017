@@ -14,12 +14,14 @@ public:
     void DisplayInit(U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C *_u8g2, GpioManager *gpioManager);
     void DrawSplashScreen(const char *version);
     void DrawWifiConnection(char *SSID);
+    void DrawWaitIoTCore();
     void DrawWaitCard(char *dt_str);
     void DrawCardInfo(char *idm);
     void DrawSetupMode();
     void DrawSetupFinish();
     void DrawWifiError();
     void DrawNTPError();
+    void DrawIoTCoreError();
 private:
     U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C *u8g2;
     GpioManager *gpioMan;

@@ -13,7 +13,7 @@ void NFCReader::NFCInit(GpioManager *gpioManager, DisplayManager *displayManager
     while (true)
       ;
   }
-  Serial.println("[ OK ] RC-S620S Connected.");
+  Serial.println("[Info] RC-S620S Connected.");
 
   clearCardInfo();
   is_detected = false;

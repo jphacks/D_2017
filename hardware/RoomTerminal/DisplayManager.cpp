@@ -51,6 +51,23 @@ void DisplayManager::DrawWifiConnection(char *SSID)
     } while (u8g2->nextPage());
 }
 
+void DisplayManager::DrawWaitIoTCore()
+{
+    u8g2->setFont(u8g2_font_profont12_mf);
+    u8g2->setFontDirection(0);
+    u8g2->firstPage();
+    do
+    {
+        u8g2->setDrawColor(0);
+        u8g2->setCursor(20, 10);
+        u8g2->print(" Connect IoT ");
+
+        u8g2->setDrawColor(1);
+        u8g2->setCursor(0, 26);
+        u8g2->print("Waiting AWS IoT Core");
+    } while (u8g2->nextPage());
+}
+
 void DisplayManager::DrawWaitCard(char *dt_str)
 {
     u8g2->setFont(u8g2_font_b16_t_japanese3);
@@ -69,12 +86,13 @@ void DisplayManager::DrawWaitCard(char *dt_str)
         }
         else
         {
-            char time_str[30];
-            strcpy(time_str, dt_str + 11);
-            time_str[8] = 0x00;
+            // char time_str[30];
+            // strcpy(time_str, dt_str + 11);
+            // time_str[8] = 0x00;
 
             u8g2->setCursor(32, 31);
-            u8g2->print(time_str);
+            // u8g2->print(time_str);
+            u8g2->print(dt_str);
         }
 
     } while (u8g2->nextPage());
@@ -163,6 +181,21 @@ void DisplayManager::DrawNTPError()
         u8g2->print("エラー");
         u8g2->setCursor(16, 31);
         u8g2->print("NTP失敗");
+    } while (u8g2->nextPage());
+}
+
+void DisplayManager::DrawIoTCoreError()
+{
+    u8g2->setFont(u8g2_font_b16_t_japanese3);
+    u8g2->setFontDirection(0);
+    u8g2->setDrawColor(1);
+    u8g2->firstPage();
+    do
+    {
+        u8g2->setCursor(32, 15);
+        u8g2->print("エラー");
+        u8g2->setCursor(0, 31);
+        u8g2->print("IoT Core接続失敗");
     } while (u8g2->nextPage());
 }
 
