@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	selectLatestQuery = "SELECT id, name, created_at FROM `version` WHERE id = (SELECT MAX(id) FROM `version` as tmp)"
+	versionSelectLatest = "SELECT id, name, created_at FROM `version` WHERE id = (SELECT MAX(id) FROM `version` as tmp)"
 )
 
 // VersionRepositoryInterface - versionテーブルにアクセスしするためのインターフェイス
@@ -38,7 +38,7 @@ func (repository *versionRepository) SelectLatest() (*model.Version, error) {
 	var name string
 	var createdAt time.Time
 	fmt.Println("[SQL Debug] SQL発行開始")
-	if err := db.client.QueryRow(selectLatestQuery).Scan(&id, &name, &createdAt); err != nil {
+	if err := db.client.QueryRow(versionSelectLatest).Scan(&id, &name, &createdAt); err != nil {
 		return nil, err
 	}
 	fmt.Println("[SQL Debug] SQL発行完了")
