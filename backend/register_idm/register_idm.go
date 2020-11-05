@@ -16,8 +16,8 @@ type reqBody struct {
 	IDm string `json:"IDm"`
 }
 
-// QuickTestAuthHandleRequest - リクエストのハンドラ
-func QuickTestAuthHandleRequest(
+// RegisterIDmHandleRequest - リクエストのハンドラ
+func RegisterIDmHandleRequest(
 	ctx context.Context,
 	req events.APIGatewayProxyRequest,
 ) (events.APIGatewayProxyResponse, error) {
@@ -49,5 +49,5 @@ func QuickTestAuthHandleRequest(
 }
 
 func main() {
-	lambda.Start(QuickTestAuthHandleRequest)
+	lambda.Start(RegisterIDmHandleRequest)
 }
