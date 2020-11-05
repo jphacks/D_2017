@@ -18,29 +18,35 @@ func main() {
 	os.Setenv("name", "local")         // テーブルを作ったDB名
 	os.Setenv("port", "3306")          // DBのポート
 
-	repository := repository.NewCardRepository()
+	userRepository := repository.NewUserRepository()
+	cardRepository := repository.NewCardRepository()
 
-	IDm := "TEST_IDm"
+	idm := "TEST_IDm"
+	userID := "TEST_UserID"
 
-	_, err := repository.Insert(&model.Card{
-		IDm:    IDm,
-		UserID: "TEST_UserID",
+	// 新規ユーザ作成
+	user, _ := model.NewUser(userID)
+	userRepository.Insert(user)
+
+	_, err := cardRepository.Insert(&model.Card{
+		IDm:    idm,
+		UserID: userID,
 	})
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	record, err := repository.SelectByIDm(IDm)
+	record, err := cardRepository.SelectByIDm(idm)
 	fmt.Println(record)
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	repository.DeleteByIDm(IDm)
+	cardRepository.DeleteByIDm(idm)
 
 	// ここはnilになるはず
-	record, _ = repository.SelectByIDm(IDm)
+	record, _ = cardRepository.SelectByIDm(idm)
 	fmt.Println(record)
 }
