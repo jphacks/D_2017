@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './RoomAdminindividual.dart';
+import './AddRoom.dart';
 
 class RoomAdminMenu extends StatelessWidget {
   @override
@@ -7,6 +8,16 @@ class RoomAdminMenu extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('部屋管理メニュー'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => 
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddRoom1())
+              ),
+          ),
+        ]
       ),
       body: ListView(
         children: <Widget>[
