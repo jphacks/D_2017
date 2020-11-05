@@ -35,7 +35,7 @@ func TestHandle(t *testing.T) {
 	}
 
 	expect := response.QuickTestResponse{
-		Message: "Hello, cers test_version(2014-12-31 12:13:24 +0000 UTC)\nWith: test_user",
+		Message: "Hello, cers test_version(2014-12-31 12:13:24 +0000 UTC) With: test_user",
 	}
 
 	if res.Message != expect.Message {
