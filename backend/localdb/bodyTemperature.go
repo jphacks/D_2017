@@ -36,11 +36,13 @@ func main() {
 		Temperature: 36.5,
 		MACAddress:  "MACAddress",
 	})
+	time.Sleep(time.Second)
 	bodyTemperatureRepository.Insert(&model.BodyTemperature{
 		UserID:      userID,
 		Temperature: 36.6,
 		MACAddress:  "MACAddress",
 	})
+	time.Sleep(time.Second)
 	bodyTemperatureRepository.Insert(&model.BodyTemperature{
 		UserID:      userID2,
 		Temperature: 36.5,
@@ -58,5 +60,9 @@ func main() {
 	fmt.Println(results)
 
 	results, _ = bodyTemperatureRepository.SelectByUserIDBetween(userID, time.Date(2014, time.December, 31, 12, 13, 24, 0, time.UTC), time.Now())
+	fmt.Println(results)
+
+	// これは空
+	results, _ = bodyTemperatureRepository.SelectByUserIDBetween(userID, time.Now(), time.Now())
 	fmt.Println(results)
 }

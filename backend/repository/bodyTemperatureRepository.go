@@ -11,8 +11,8 @@ const (
 	bodyTemperatureInsert                = "INSERT INTO body_temperature(user_id, temperature, mac_address) VALUES(?, ?, ?)"
 	bodyTemperatureUpdateIsTrustedByID   = "UPDATE body_temperature SET is_trusted = ? WHERE id = ?"
 	bodyTemperatureSelectByID            = "SELECT id, user_id, temperature, mac_address, is_trusted, created_at FROM body_temperature WHERE id = ?"
-	bodyTemperatureSelectByUserID        = "SELECT id, user_id, temperature, mac_address, is_trusted, created_at FROM body_temperature WHERE user_id = ? LIMIT ? OFFSET ?"
-	bodyTemperatureSelectByUserIDBetween = "SELECT id, user_id, temperature, mac_address, is_trusted, created_at FROM body_temperature WHERE user_id = ? AND created_at BETWEEN ? AND ?"
+	bodyTemperatureSelectByUserID        = "SELECT id, user_id, temperature, mac_address, is_trusted, created_at FROM body_temperature WHERE user_id = ? ORDER BY created_at DESC LIMIT ? OFFSET ?"
+	bodyTemperatureSelectByUserIDBetween = "SELECT id, user_id, temperature, mac_address, is_trusted, created_at FROM body_temperature WHERE user_id = ? AND created_at BETWEEN ? AND ? ORDER BY created_at DESC"
 )
 
 // BodyTemperatureRepositoryInterface - body_temperatureテーブルにアクセスしするためのインターフェイス
