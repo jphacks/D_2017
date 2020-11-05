@@ -16,7 +16,10 @@ Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // AWS IoT Settings
 const char AWSIOTURL[] = "XXXXX.iot.REGION.amazonaws.com";
-const char THING[] = "THING_NAME_HERE";
+const char THING[] = "RoomReader-XXXXXXXXXXXX";
+char TOPIC_NAME[]= "entry";
+const char JSONPAYLOAD[] = "{ \"IDm\": \"%s\", \"mac_address\": \"%s\", \"timestamp\": %lu }";
+
 
 /* AWS Iot root certificate for region eu-central-1 */
 const char aws_root_ca[] = "-----BEGIN CERTIFICATE-----\n\

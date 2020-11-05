@@ -77,7 +77,8 @@ void loop()
   {
     gpioMan.setLEDColor(GpioManager::Color::GREEN, 50);
 
-    // [TODO] AWS IoT MQTT Publish
+    // AWS IoT MQTT Publish
+    netMan.publishToIoTCore(nfcReader.card_info.idm);
     gpioMan.ringBuzzer(100);
 
     gpioMan.setLEDColor(GpioManager::Color::GREEN, 0);

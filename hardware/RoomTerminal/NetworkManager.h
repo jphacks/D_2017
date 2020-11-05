@@ -14,13 +14,14 @@
 #define SSID_MAX_LEN 32
 #define PASS_MAX_LEN 63
 #define NTPS_MAX_LEN 128
-#define APIS_MAX_LEN 256
 
 extern const char aws_root_ca[];
 extern const char thingCA[];
 extern const char thingKey[];
 extern const char AWSIOTURL[];
 extern const char THING[];
+extern char TOPIC_NAME[];
+extern const char JSONPAYLOAD[];
 
 class NetworkManager
 {
@@ -30,7 +31,6 @@ public:
         char ssid[SSID_MAX_LEN + 1];
         char pass[PASS_MAX_LEN + 1];
         char ntps[NTPS_MAX_LEN + 1];
-        char apis[APIS_MAX_LEN + 1];
     };
 
     void NetworkInit(GpioManager *gpioManager, DisplayManager *displayManager);
@@ -38,6 +38,7 @@ public:
     void setupNTP();
     bool getNTPTime(char *str_dt, uint8_t str_c);
     bool setupIoTCore();
+    void publishToIoTCore(char *idm);
     bool isIoTCoreConnected();
     void setWifiConfig(const char *ssid, const char *pass);
 
@@ -50,6 +51,8 @@ private:
     WiFiUDP ntpUDP;
     NTPClient *timeClient;
     AWSGreenGrassIoT *greengrass;
+
+    char payload[512];
 
     void loadWifiConfig(WIFI_CONFIG *buf);
     void storeWifiConfig(WIFI_CONFIG buf);

@@ -35,6 +35,9 @@ void NetworkManager::connectWifi()
     }
 
     Serial.println("done.");
+    Serial.print("[Info] MAC Address : ");
+    Serial.println(WiFi.macAddress());
+
     gpioMan->setLEDColor(GpioManager::Color::GREEN, 0);
 }
 
@@ -73,6 +76,23 @@ bool NetworkManager::isIoTCoreConnected()
     return greengrass->isConnected();
 }
 
+void NetworkManager::publishToIoTCore(char *idm)
+{
+    timeClient->update();
+
+    sprintf(payload, JSONPAYLOAD,
+            idm, WiFi.macAddress().c_str(), timeClient->getEpochTime());
+    if (greengrass->publish(TOPIC_NAME, payload))
+    {
+        Serial.print("[Info] Publish Message:");
+        Serial.println(payload);
+    }
+    else
+    {
+        Serial.println("[Error] Publish failed");
+    }
+}
+
 void NetworkManager::setWifiConfig(const char *ssid, const char *pass)
 {
     // c++のstring世界からCのchar配列の世界へ持ってくる
@@ -80,7 +100,6 @@ void NetworkManager::setWifiConfig(const char *ssid, const char *pass)
     std::strcpy(wifi_config.pass, pass);
     // 決め打ちntp&API設定
     std::strcpy(wifi_config.ntps, "ntp.nict.jp");
-    std::strcpy(wifi_config.apis, "");
 
     storeWifiConfig(wifi_config);
 }
