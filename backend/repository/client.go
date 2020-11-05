@@ -14,8 +14,6 @@ func newDB(info *dbInfo) (*db, error) {
 	dataSourceConfig := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?%s",
 		info.user, info.password, info.endpoint, info.port, info.name, option)
 
-	fmt.Println("Connection config: " + dataSourceConfig)
-
 	client, err := sql.Open("mysql", dataSourceConfig)
 	if err != nil {
 		return nil, err
