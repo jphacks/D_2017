@@ -1,8 +1,7 @@
 import 'package:design/main.dart';
 import 'package:flutter/material.dart';
-import './Login.dart';
-import '../XD_RegTempDevice.dart';
-import '../XD_RegICCard.dart';
+import './RegTempDevice.dart';
+import './RegICCard.dart';
 
 class AccountMenu extends StatelessWidget {
   @override
@@ -21,7 +20,7 @@ class AccountMenu extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => XD_RegTempDevice())
+                  MaterialPageRoute(builder: (context) => RegTempDevice())
                 )
               },
             ),
@@ -34,7 +33,7 @@ class AccountMenu extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => XD_RegICCard())
+                  MaterialPageRoute(builder: (context) => RegICCard())
                 )
               },
             ),

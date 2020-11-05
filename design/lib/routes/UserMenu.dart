@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../XD_RoomAdminMenu.dart';
+import './RoomAdminMenu.dart';
 import './EnterRoomList.dart';
 import './TempLog.dart';
 import './AccountMenu.dart';
@@ -65,7 +65,7 @@ class UserMenu extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => XD_RoomAdminMenu())
+                  MaterialPageRoute(builder: (context) => RoomAdminMenu())
                 )
               },
             ),
