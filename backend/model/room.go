@@ -1,6 +1,9 @@
 package model
 
-import "errors"
+import (
+	"errors"
+	"unicode/utf8"
+)
 
 // Room - roomテーブルのカラム
 type Room struct {
@@ -13,7 +16,7 @@ type Room struct {
 
 // NewRoom - roomテーブル挿入用のデータを生成します
 func NewRoom(name string, limitNumber int, limitBodyTemperature float32, allowMissing bool) (*Room, error) {
-	nameLength := len(name)
+	nameLength := utf8.RuneCountInString(name)
 
 	// 文字数制約
 	if nameLength <= 0 && nameLength > 100 {
