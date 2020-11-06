@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'UserMenu.dart';
+import '../main.dart';
 
 class Signup extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -94,7 +95,34 @@ class Signup extends StatelessWidget {
                 child: Text('送信'),
               ),
             ),
-          ],
+            Padding(padding: EdgeInsets.all(20.0)),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+              'ログインはこちら',
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: FlatButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                disabledColor: Colors.grey,
+                disabledTextColor: Colors.black,
+                padding: EdgeInsets.all(8.0),
+                splashColor: Colors.blueAccent,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => App()));
+                },
+                child: Text(
+                  "ログインページへ",
+                ),
+              ),
+            )
+            ],
         ),
       ),
     );
