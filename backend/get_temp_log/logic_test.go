@@ -90,9 +90,9 @@ func (m *mockBodyTemperatureRepository) SelectByUserID(userID string, offset int
 func (m *mockBodyTemperatureRepository) SelectByUserIDBetween(userID string, since time.Time, until time.Time) (*[]model.BodyTemperature, error) {
 	var array [3]model.BodyTemperature
 	times := [3]time.Time{
-		time.Date(2014, time.December, 31, 12, 13, 24, 0, time.UTC),
-		time.Date(2014, time.December, 31, 12, 14, 24, 0, time.UTC),
 		time.Date(2014, time.December, 31, 12, 15, 24, 0, time.UTC),
+		time.Date(2014, time.December, 31, 12, 14, 24, 0, time.UTC),
+		time.Date(2014, time.December, 31, 12, 13, 24, 0, time.UTC),
 	}
 	array[0] = model.BodyTemperature{
 		ID:          42,
@@ -138,10 +138,11 @@ func TestHandle(t *testing.T) {
 		times = append(times, time.Date(2014, time.December, 31, 12, 13+i, 24, 0, time.UTC))
 	}
 
-	var logs []*response.BodyTemperature
-	logs = append(logs, &response.BodyTemperature{Temperature: 36.5, IsTrusted: true, MeasuredTime: &times[0]})
-	logs = append(logs, &response.BodyTemperature{Temperature: 36.3, IsTrusted: true, MeasuredTime: &times[1]})
-	logs = append(logs, &response.BodyTemperature{Temperature: 36.6, IsTrusted: true, MeasuredTime: &times[2]})
+	logs := []*response.BodyTemperature{
+		{Temperature: 36.5, IsTrusted: true, MeasuredTime: &times[0]},
+		{Temperature: 36.3, IsTrusted: true, MeasuredTime: &times[1]},
+		{Temperature: 36.6, IsTrusted: true, MeasuredTime: &times[2]},
+	}
 
 	expect := &response.TempLogResponse{Logs: logs}
 

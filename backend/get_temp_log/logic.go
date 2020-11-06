@@ -5,12 +5,10 @@ import (
 	"github.com/jphacks/D_2017/response"
 )
 
-// RegisterIdmLogic - IDｍ登録のロジック
 type getTempLogLogic struct {
 	bodyTemperatureRepository repository.BodyTemperatureRepositoryInterface
 }
 
-// NewRegisterIdmLogic - DIによるlogicの初期化
 func newGetTempLogLogic(repos repository.BodyTemperatureRepositoryInterface) *getTempLogLogic {
 	return &getTempLogLogic{
 		bodyTemperatureRepository: repos,

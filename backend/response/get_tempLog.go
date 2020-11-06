@@ -4,10 +4,11 @@ import (
 	"time"
 )
 
+// BodyTemperature - 個別の体温ログ
 type BodyTemperature struct {
-	Temperature  float32    `json:"Temperature"`
-	IsTrusted    bool       `json:"IsTrusted"`
-	MeasuredTime *time.Time `json:"MeasuredTime"`
+	Temperature  float32    `json:"temperature"`
+	IsTrusted    bool       `json:"isTrusted"`
+	MeasuredTime *time.Time `json:"measuredTime"`
 }
 
 // TempLogResponse - 体温ログのレスポンス
