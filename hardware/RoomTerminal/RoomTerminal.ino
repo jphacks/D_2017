@@ -40,7 +40,7 @@ void setup()
   bleWifiConf.BLEWifiConfigureInit(&gpioMan, &dispMan, &netMan);
 
   Serial.println("JPHACKS2020 NFC Program.");
-  dispMan.DrawSplashScreen("1.2.0");
+  dispMan.DrawSplashScreen("1.2.1");
   gpioMan.setLEDColor(GpioManager::Color::GREEN, 0);
 
   // Conf Mode Check
@@ -101,7 +101,6 @@ void loop()
   }
   else if (entry_res != ASKING)
   {
-    Serial.println(entry_res);
     showCardResult();
     entry_res = IDLE;
   }
@@ -124,7 +123,7 @@ bool setupIoTCore()
 
   dispMan.DrawWaitSubscribe();
   // Wait for starting MQTT Client
-  delay(5000);
+  delay(2000);
 
   if (!setupIoTCoreSubscribe())
   {
