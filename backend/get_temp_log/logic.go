@@ -27,7 +27,7 @@ func (logic *getTempLogLogic) handle(userID string, offset int, count int) (*res
 		temp := response.BodyTemperature{
 			Temperature:  log.Temperature,
 			IsTrusted:    log.IsTrusted,
-			MeasuredTime: log.CreatedAt,
+			MeasuredTime: *log.CreatedAt,
 		}
 		res = append(res, &temp)
 	}
