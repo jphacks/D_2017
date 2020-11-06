@@ -139,9 +139,9 @@ func TestHandle(t *testing.T) {
 	}
 
 	logs := []*response.BodyTemperature{
-		{Temperature: 36.5, IsTrusted: true, MeasuredTime: &times[0]},
-		{Temperature: 36.3, IsTrusted: true, MeasuredTime: &times[1]},
-		{Temperature: 36.6, IsTrusted: true, MeasuredTime: &times[2]},
+		{Temperature: 36.5, IsTrusted: true, MeasuredTime: times[0]},
+		{Temperature: 36.3, IsTrusted: true, MeasuredTime: times[1]},
+		{Temperature: 36.6, IsTrusted: true, MeasuredTime: times[2]},
 	}
 
 	expect := &response.TempLogResponse{Logs: logs}
