@@ -3,7 +3,7 @@ import './RoomAdminindividualEnterLog.dart';
 import './RoomAdminindividualEditName.dart';
 import './RoomAdminindividualEditTemp.dart';
 import './RoomAdminindividualAllowMember.dart';
-import './RoomAdminindividualDenyMember.dart';
+import 'RoomAdminindividualPendingMember.dart';
 
 class RoomAdminindividual extends StatelessWidget {
   String _roomName = '';
@@ -84,7 +84,7 @@ class RoomAdminindividual extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RoomAdminindividualDenyMember())
+                  MaterialPageRoute(builder: (context) => RoomAdminindividualPendingMember())
                 )
               },
             ),

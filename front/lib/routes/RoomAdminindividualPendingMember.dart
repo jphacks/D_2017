@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import './RoomAdminindividualDenySelect.dart';
+import 'RoomAdminindividualPendingSelect.dart';
 
-class RoomAdminindividualDenyMember extends StatelessWidget {
+class RoomAdminindividualPendingMember extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class RoomAdminindividualDenyMember extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RoomAdminindividualDenySelect()),
+                  MaterialPageRoute(builder: (context) => RoomAdminindividualPendingSelect()),
                 )
               },
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import './RoomAdminindividualDenyMember.dart';
+import 'RoomAdminindividualPendingMember.dart';
 
-class RoomAdminindividualDenySelect extends StatelessWidget {
+class RoomAdminindividualPendingSelect extends StatelessWidget {
   //ユーザ名も欲しいけど、任意のユーザIDをここに持ってこないとダメか
 
   @override
@@ -26,7 +26,7 @@ class RoomAdminindividualDenySelect extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => RoomAdminindividualDenyMember()));
+                      builder: (context) => RoomAdminindividualPendingMember()));
               },
               child: Text(
                 "入室を許可",
@@ -46,7 +46,7 @@ class RoomAdminindividualDenySelect extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => RoomAdminindividualDenyMember()));
+                      builder: (context) => RoomAdminindividualPendingMember()));
               },
               child: Text(
                 "入室を拒否",
