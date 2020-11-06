@@ -1,9 +1,14 @@
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:design/main.dart';
 import 'package:flutter/material.dart';
 import './RegTempDevice.dart';
 import './RegICCard.dart';
 
 class AccountMenu extends StatelessWidget {
+  final CognitoUserSession _session;
+
+  AccountMenu(this._session);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +25,11 @@ class AccountMenu extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegTempDevice())
+                  MaterialPageRoute(builder: (context) => RegTempDevice(_session))
                 )
               },
             ),
-            
+
           ),
           Card(
             child: ListTile(
@@ -33,7 +38,7 @@ class AccountMenu extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegICCard())
+                  MaterialPageRoute(builder: (context) => RegICCard(_session))
                 )
               },
             ),
@@ -54,7 +59,7 @@ class AccountMenu extends StatelessWidget {
         ],
       )
 
-      
+
     );
   }
 }

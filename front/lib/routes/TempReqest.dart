@@ -1,9 +1,13 @@
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
 import './UserMenu.dart';
 
 class TempReqest extends StatelessWidget {
+  final CognitoUserSession _session;
   final _tempKey = GlobalKey<FormState>();
   String _nowTemp = '';
+
+  TempReqest(this._session);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,6 @@ class TempReqest extends StatelessWidget {
                 },
               ),
             ),
-            
             Align(
               alignment: Alignment.center,
               child: RaisedButton(
@@ -47,7 +50,7 @@ class TempReqest extends StatelessWidget {
                     Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UserMenu()));
+                        builder: (context) => UserMenu(_session)));
                   }
                 },
                 child: Text('登録'),

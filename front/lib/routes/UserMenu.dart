@@ -1,3 +1,4 @@
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
 import './RoomAdminMenu.dart';
 import './EnterRoomList.dart';
@@ -5,6 +6,10 @@ import './TempLog.dart';
 import './AccountMenu.dart';
 
 class UserMenu extends StatelessWidget {
+  final CognitoUserSession _session;
+
+  UserMenu(this._session);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +41,7 @@ class UserMenu extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TempLog())
+                  MaterialPageRoute(builder: (context) => TempLog(_session))
                 )
               },
             ),
@@ -49,13 +54,13 @@ class UserMenu extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AccountMenu())
+                  MaterialPageRoute(builder: (context) => AccountMenu(_session))
                 )
               },
             ),
           ),
 
-          
+
           ListTile(title: Text('管理者メニュー')),
           Card(
             child: ListTile(
@@ -73,7 +78,7 @@ class UserMenu extends StatelessWidget {
         ],
       )
 
-      
+
     );
   }
 }

@@ -1,7 +1,12 @@
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
 import './AccountMenu.dart';
 
 class RegTempDevice extends StatelessWidget {
+  final CognitoUserSession _session;
+
+  RegTempDevice(this._session);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,13 +19,13 @@ class RegTempDevice extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 10.0, right: 30.0, bottom: 10.0, left: 30.0),
             child: Text(
-             '下に表示されるリストの中から、登録するデバイスを選択してください。'
+              '下に表示されるリストの中から、登録するデバイスを選択してください。'
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 10.0, right: 30.0, bottom: 10.0, left: 30.0),
             child: Text(
-             '表示されない場合は、以下の2点をご確認ください。\n ・機器の電源が入っているか\n ・スマートフォンと機器を近づけているか'
+              '表示されない場合は、以下の2点をご確認ください。\n ・機器の電源が入っているか\n ・スマートフォンと機器を近づけているか'
             ),
           ),
           ListTile(title: Text('検出した検温デバイス一覧')),
@@ -31,15 +36,13 @@ class RegTempDevice extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AccountMenu())
+                  MaterialPageRoute(builder: (context) => AccountMenu(_session))
                 )
               },
             ),
           ),
         ],
       )
-
-      
     );
   }
 }

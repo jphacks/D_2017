@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import './UserMenu.dart';
-import './Signup.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../UserMenu.dart';
+import 'Signup.dart';
+
+final userPool = new CognitoUserPool(
+  DotEnv().env['POOL_ID'], DotEnv().env['CLIENT_ID']);
 
 class Login extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  String _mailaddress = '';
-  String _password = '';
+  final _mailAddressController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +28,15 @@ class Login extends StatelessWidget {
                 labelText: "メールアドレスを入力", // ラベル
                 hintText: 'Mail Address', // 入力ヒント
               ),
-              autovalidate: false, // 入力変化しても自動でチェックしない。trueにすると初期状態および入力が変化する毎に自動でvalidatorがコールされる
+              controller: _mailAddressController, // 入力変化しても自動でチェックしない。trueにすると初期状態および入力が変化する毎に自動でvalidatorがコールされる
               validator: (value) { // _formKey.currentState.validate()でコールされる
                 if (value.isEmpty) {
                   return '入力してください'; // エラー表示のメッセージを返す
                 }
+                if (!EmailValidator.validate(value)) {
+                  return '正しいメールアドレスを入力してください';
+                }
                 return null; // 問題ない場合はnullを返す
-              },
-              onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
-                _mailaddress = value;
               },
             ),
           ),
@@ -43,15 +49,15 @@ class Login extends StatelessWidget {
                 labelText: "パスワードを入力", // ラベル
                 hintText: 'Password', // 入力ヒント
               ),
-              autovalidate: false, // 入力変化しても自動でチェックしない。trueにすると初期状態および入力が変化する毎に自動でvalidatorがコールされる
+              controller: _passwordController,
               validator: (value) { // _formKey.currentState.validate()でコールされる
                 if (value.isEmpty) {
                   return '入力してください'; // エラー表示のメッセージを返す
                 }
+                if (value.length < 8) {
+                  return '8文字以上のパスワード入力してください';
+                }
                 return null; // 問題ない場合はnullを返す
-              },
-              onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
-                _password = value;
               },
             ),
           ),
@@ -61,12 +67,7 @@ class Login extends StatelessWidget {
               onPressed: () {
                 // 各Fieldのvalidatorを呼び出す
                 if (_formKey.currentState.validate()) {
-                  // 入力データが正常な場合の処理
-                  this._formKey.currentState.save();
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => UserMenu()));
+                  _signIn(context);
                 }
               },
               child: Text('ログイン'),
@@ -76,7 +77,7 @@ class Login extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-             '登録がお済みでない方',
+              '登録がお済みでない方',
             ),
           ),
           Align(
@@ -102,5 +103,36 @@ class Login extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _signIn(BuildContext context) async {
+    var cognitoUser = new CognitoUser(_mailAddressController.text, userPool);
+    var authDetails = new AuthenticationDetails(
+        username: _mailAddressController.text,
+        password: _passwordController.text);
+    try {
+      var session = await cognitoUser.authenticateUser(authDetails);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => UserMenu(session))
+      );
+    } catch (e) {
+      await showDialog<int>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('エラー'),
+            content: Text(e.message),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () => Navigator.of(context).pop(1),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

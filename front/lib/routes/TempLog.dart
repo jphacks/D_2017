@@ -1,8 +1,13 @@
+import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
 import './TempLogTempDevice.dart';
 import './TempReqest.dart';
 
 class TempLog extends StatelessWidget {
+  final CognitoUserSession _session;
+
+  TempLog(this._session);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +30,7 @@ class TempLog extends StatelessWidget {
                 )
               },
             ),
-          ),    
+          ),
           ListTile(title: Text('体温手動登録')),
           Card(
             child: ListTile(
@@ -34,7 +39,7 @@ class TempLog extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TempReqest())
+                  MaterialPageRoute(builder: (context) => TempReqest(_session))
                 )
               },
             ),
@@ -42,7 +47,7 @@ class TempLog extends StatelessWidget {
         ],
       )
 
-      
+
     );
   }
 }
