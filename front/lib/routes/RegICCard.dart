@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './AccountMenu.dart';
+import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
 
 class RegICCard extends StatelessWidget {
   @override
@@ -14,13 +14,13 @@ class RegICCard extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 10.0, right: 30.0, bottom: 10.0, left: 30.0),
             child: Text(
-             'カードをスマートフォンの上部に覆い隠すように置いてから、下の「スキャン」ボタンを押してください。'
+              'カードをスマートフォンの上部に覆い隠すように置いてから、下の「スキャン」ボタンを押してください。'
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 10.0, right: 30.0, bottom: 10.0, left: 30.0),
             child: Text(
-             '【エラーが表示される場合】\n ・スキャンがうまくいかない場合は、ケースやカバーを外してください。'
+              '【エラーが表示される場合】\n ・スキャンがうまくいかない場合は、ケースやカバーを外してください。'
             ),
           ),
           Align(
@@ -32,11 +32,10 @@ class RegICCard extends StatelessWidget {
               disabledTextColor: Colors.black,
               padding: EdgeInsets.all(8.0),
               splashColor: Colors.blueAccent,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AccountMenu()));
+              onPressed: () async {
+                NfcData res = await FlutterNfcReader.read();
+                print(res.id);
+                Navigator.pop(context);
               },
               child: Text(
                 "スキャン",
@@ -46,7 +45,7 @@ class RegICCard extends StatelessWidget {
         ],
       )
 
-      
+
     );
   }
 }
