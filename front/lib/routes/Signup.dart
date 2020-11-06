@@ -4,7 +4,7 @@ import '../main.dart';
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 
 /* ここ変更してね */
-final userPool = new CognitoUserPool('ap-northeast-1_XoqXlafQm', '1e7ri3io3j0ds336077gelhhub');
+final userPool = new CognitoUserPool('[プールID ex. ap-northeast-1_XXXXXXXX]', '[アプリクライアントID]');
 
 class Signup extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
