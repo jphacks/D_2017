@@ -1,11 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/jphacks/D_2017/repository"
+	"github.com/jphacks/D_2017/response"
 
 	"github.com/jphacks/D_2017/model"
 )
@@ -131,13 +133,18 @@ func TestHandle(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	var s [3]string
-	s[0] = "{\"ID\":42,\"UserID\":\"test-user\",\"Temperature\":36.5,\"MACAddress\":\"00:00:00:00:00\",\"IsTrusted\":true,\"CreatedAt\":\"2014-12-31T12:13:24Z\"}"
-	s[1] = "{\"ID\":43,\"UserID\":\"test-user\",\"Temperature\":36.3,\"MACAddress\":\"00:00:00:00:00\",\"IsTrusted\":true,\"CreatedAt\":\"2014-12-31T12:14:24Z\"}"
-	s[2] = "{\"ID\":44,\"UserID\":\"test-user\",\"Temperature\":36.6,\"MACAddress\":\"00:00:00:00:00\",\"IsTrusted\":true,\"CreatedAt\":\"2014-12-31T12:15:24Z\"}"
-	expect := fmt.Sprintf("[%s,%s,%s]", s[0], s[1], s[2])
-
-	if res != expect {
-		t.Fatalf("Logs was not matched. expect:%s, actual:%s", expect, res)
+	var times []time.Time
+	for i := 0; i < 3; i++ {
+		times = append(times, time.Date(2014, time.December, 31, 12, 13+i, 24, 0, time.UTC))
 	}
+
+	var logs []*response.BodyTemperature
+	logs = append(logs, &response.BodyTemperature{Temperature: 36.5, IsTrusted: true, MeasuredTime: &times[0]})
+	logs = append(logs, &response.BodyTemperature{Temperature: 36.3, IsTrusted: true, MeasuredTime: &times[1]})
+	logs = append(logs, &response.BodyTemperature{Temperature: 36.6, IsTrusted: true, MeasuredTime: &times[2]})
+
+	expect := &response.TempLogResponse{Logs: logs}
+
+	assert.ElementsMatch(t, res.Logs, expect.Logs)
+
 }

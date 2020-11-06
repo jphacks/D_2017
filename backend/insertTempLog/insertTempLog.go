@@ -4,17 +4,21 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"strconv"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/jphacks/D_2017/model"
 	"github.com/jphacks/D_2017/repository"
 
 	_ "github.com/go-sql-driver/mysql" // グローバル設定を宣言(DBドライバの設定)
 )
 
-// GetTempLogHandleRequest - リクエストのハンドラ
-func GetTempLogHandleRequest(
+type reqBody struct {
+	Body_temperature model.BodyTemperature `json:"body_temperature"`
+}
+
+// InsertTempLogHandleRequest - リクエストのハンドラ
+func InsertTempLogHandleRequest(
 	ctx context.Context,
 	req events.APIGatewayProxyRequest,
 ) (events.APIGatewayProxyResponse, error) {
@@ -25,31 +29,26 @@ func GetTempLogHandleRequest(
 	}
 	userID := claims["sub"].(string)
 
-	// リクエストからoffsetとcountを取得
-	offset, err := strconv.Atoi(req.PathParameters["offset"])
+	// reqbodyから体温を取得
+	var reqbody reqBody
+	err := json.Unmarshal([]byte(req.Body), &reqbody)
 	if err != nil {
-		return events.APIGatewayProxyResponse{StatusCode: 400}, err
+		return events.APIGatewayProxyResponse{}, errors.New("No temp is in request body")
 	}
-	count, err := strconv.Atoi(req.PathParameters["count"])
-	if err != nil {
-		return events.APIGatewayProxyResponse{StatusCode: 400}, err
-	}
+	templog := reqbody.Body_temperature
 
 	// logic呼び出し
-	logic := newGetTempLogLogic(repository.NewBodyTemperatureRepository())
-	res, err := logic.handle(userID, int(offset), int(count))
+	logic := newInsertTempLogLogic(repository.NewBodyTemperatureRepository())
+	_, err = logic.handle(idm, userID)
 	if err != nil {
 		return events.APIGatewayProxyResponse{StatusCode: 500}, err
 	}
 
-	body, _ := json.Marshal(res)
-
 	return events.APIGatewayProxyResponse{
-		StatusCode: 200,
-		Body:       string(body),
+		StatusCode: 201,
 	}, nil
 }
 
 func main() {
-	lambda.Start(GetTempLogHandleRequest)
+	lambda.Start(InsertTempLogHandleRequest)
 }

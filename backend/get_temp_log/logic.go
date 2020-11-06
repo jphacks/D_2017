@@ -1,9 +1,8 @@
 package main
 
 import (
-	"encoding/json"
-
 	"github.com/jphacks/D_2017/repository"
+	"github.com/jphacks/D_2017/response"
 )
 
 // RegisterIdmLogic - IDｍ登録のロジック
@@ -19,16 +18,21 @@ func newGetTempLogLogic(repos repository.BodyTemperatureRepositoryInterface) *ge
 }
 
 // ここにロジックを書く
-func (logic *getTempLogLogic) handle(userID string, offset int, count int) (string, error) {
+func (logic *getTempLogLogic) handle(userID string, offset int, count int) (*response.TempLogResponse, error) {
 	logs, err := logic.bodyTemperatureRepository.SelectByUserID(userID, offset, count)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	res, err := json.Marshal(logs)
-	if err != nil {
-		return "", err
+	var res []*response.BodyTemperature
+	for _, log := range *logs {
+		temp := response.BodyTemperature{
+			Temperature:  log.Temperature,
+			IsTrusted:    log.IsTrusted,
+			MeasuredTime: log.CreatedAt,
+		}
+		res = append(res, &temp)
 	}
 
-	return string(res), err
+	return &response.TempLogResponse{Logs: res}, err
 }
