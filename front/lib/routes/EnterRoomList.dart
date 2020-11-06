@@ -15,18 +15,7 @@ class EnterRoomList extends StatelessWidget {
               title: Text('Room 1'),
             ),
           ),
-          Card(
-            child: ListTile(
-              title: Text('Room 2'),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text('Room 3'),
-            ),
-          ),
 
-          
           ListTile(title: Text('未承認申請一覧')),
           Card(
             child: ListTile(
@@ -35,8 +24,6 @@ class EnterRoomList extends StatelessWidget {
           ),
         ],
       )
-
-      
     );
   }
 }

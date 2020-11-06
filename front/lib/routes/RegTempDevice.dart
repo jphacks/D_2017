@@ -36,19 +36,6 @@ class RegTempDevice extends StatelessWidget {
               },
             ),
           ),
-
-          Card(
-            child: ListTile(
-              title: Text('Toilet Device'),
-              trailing: Icon(Icons.arrow_right),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AccountMenu())
-                )
-              },
-            ),
-          ),
         ],
       )
 

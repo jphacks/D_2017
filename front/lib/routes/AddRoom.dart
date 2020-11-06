@@ -3,6 +3,8 @@ import './RoomAdminMenu.dart';
 
 class AddRoom1 extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+  String _roomName = '';
+  String _maxTemp = '';
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class AddRoom1 extends StatelessWidget {
                   return null; // 問題ない場合はnullを返す
                 },
                 onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
-                  print('$value');
+                  _roomName = value;
                 },
               ),
             ),
@@ -49,7 +51,7 @@ class AddRoom1 extends StatelessWidget {
                   return null; // 問題ない場合はnullを返す
                 },
                 onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
-                  print('$value');
+                  _maxTemp = value;
                 },
               ),
             ),
@@ -103,19 +105,6 @@ class AddRoom2 extends StatelessWidget {
           Card(
             child: ListTile(
               title: Text('Enter Device ID 1'),
-              trailing: Icon(Icons.arrow_right),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RoomAdminMenu())
-                )
-              },
-            ),
-          ),
-
-          Card(
-            child: ListTile(
-              title: Text('Enter Device ID 2'),
               trailing: Icon(Icons.arrow_right),
               onTap: () => {
                 Navigator.push(

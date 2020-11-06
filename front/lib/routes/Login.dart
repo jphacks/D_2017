@@ -4,6 +4,8 @@ import './Signup.dart';
 
 class Login extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+  String _mailaddress = '';
+  String _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class Login extends StatelessWidget {
                 return null; // 問題ない場合はnullを返す
               },
               onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
-                print('$value');
+                _mailaddress = value;
               },
             ),
           ),
@@ -49,7 +51,7 @@ class Login extends StatelessWidget {
                 return null; // 問題ない場合はnullを返す
               },
               onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
-                print('$value');
+                _password = value;
               },
             ),
           ),
