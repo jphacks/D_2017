@@ -26,7 +26,11 @@ func (logic *roomMembersLogic) handle(userID string, roomID int) (*response.Room
 	if admin == nil {
 		return nil, nil
 	}
+
 	memberRecords, err := logic.memberRepository.SelectByRoomIDAndState(roomID, enum.ACCEPT)
+	if err != nil {
+		return nil, err
+	}
 
 	var members []response.Member
 	for _, member := range *memberRecords {

@@ -66,7 +66,7 @@ func (m *mockMemberRepository) SelectByRoomIDAndState(roomID int, state int) (*[
 }
 
 func TestHandle(t *testing.T) {
-	logic := newRoomMembersLogic(repository.NewMemberRepository(), repository.NewAdminRepository())
+	logic := newRoomMembersLogic(newMockMemberRepository(), newMockAdminRepository())
 	res, err := logic.handle("user1", 42)
 	if err != nil {
 		t.Fatal(err)
