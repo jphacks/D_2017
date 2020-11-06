@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../XD_RegTempDeviceDone.dart';
+import './AccountMenu.dart';
 
 class RegTempDevice extends StatelessWidget {
   @override
@@ -31,7 +31,7 @@ class RegTempDevice extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => XD_RegTempDeviceDone())
+                  MaterialPageRoute(builder: (context) => AccountMenu())
                 )
               },
             ),
@@ -44,7 +44,7 @@ class RegTempDevice extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => XD_RegTempDeviceDone())
+                  MaterialPageRoute(builder: (context) => AccountMenu())
                 )
               },
             ),

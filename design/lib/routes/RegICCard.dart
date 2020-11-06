@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../XD_RegICCardDone.dart';
+import './AccountMenu.dart';
 
 class RegICCard extends StatelessWidget {
   @override
@@ -36,7 +36,7 @@ class RegICCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => XD_RegICCardDone()));
+                      builder: (context) => AccountMenu()));
               },
               child: Text(
                 "スキャン",
