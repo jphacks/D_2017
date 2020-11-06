@@ -6,7 +6,7 @@ AWSGreenGrassIoT *greengrass;
 
 char PUB_TOPIC_NAME[] = "entry/register";
 char SUB_TOPIC_NAME[] = "entry/result";
-char JSONPAYLOAD[] = "{ \"IDm\": \"%s\", \"mac_address\": \"%s\", \"timestamp\": %lu }";
+char JSONPAYLOAD[] = "{ \"idm\": \"%s\", \"mac_address\": \"%s\", \"timestamp\": %lu }";
 
 static void subscribeCallback(int topicNameLen, char *topicName, int payloadLen, char *payLoad)
 {

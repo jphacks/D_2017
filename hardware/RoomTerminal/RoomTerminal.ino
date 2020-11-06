@@ -40,7 +40,7 @@ void setup()
   bleWifiConf.BLEWifiConfigureInit(&gpioMan, &dispMan, &netMan);
 
   Serial.println("JPHACKS2020 NFC Program.");
-  dispMan.DrawSplashScreen("1.2.1");
+  dispMan.DrawSplashScreen("1.2.2");
   gpioMan.setLEDColor(GpioManager::Color::GREEN, 0);
 
   // Conf Mode Check
