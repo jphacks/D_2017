@@ -5,6 +5,7 @@ import (
 	"github.com/jphacks/D_2017/repository"
 )
 
+// ReqEnterLogic - 入室権限申請ロジック
 type ReqEnterLogic struct {
 	memberRepository repository.MemberRepositoryInterface
 }

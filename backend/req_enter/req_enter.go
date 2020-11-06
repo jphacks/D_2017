@@ -12,6 +12,7 @@ import (
 	_ "github.com/go-sql-driver/mysql" // グローバル設定を宣言(DBドライバの設定)
 )
 
+// ReqEnterHandlerRequest - 入室権限申請リクエストハンドラ
 func ReqEnterHandlerRequest(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	// 認証
 	claims, ok := req.RequestContext.Authorizer["claims"].(map[string]interface{})
