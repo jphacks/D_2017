@@ -90,7 +90,7 @@ class Signup extends StatelessWidget {
                 padding: EdgeInsets.all(8.0),
                 splashColor: Colors.blueAccent,
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(
                     context,
                     MaterialPageRoute(
                         builder: (context) => App()));
