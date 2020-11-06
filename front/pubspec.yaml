@@ -28,6 +28,8 @@ dependencies:
   flutter_svg: ^0.18.0
   amazon_cognito_identity_dart_2: ^0.1.12+3
   flutter_nfc_reader: ^0.1.0
+  email_validator: '^1.0.5'
+  flutter_dotenv: ^2.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -80,3 +82,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  assets:
+    - .env
