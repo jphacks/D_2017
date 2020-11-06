@@ -40,11 +40,11 @@ func RegisterIDmHandleRequest(
 	logic := newRegisterIdmLogic(repository.NewCardRepository())
 	_, err = logic.handle(idm, userID)
 	if err != nil {
-		return events.APIGatewayProxyResponse{}, err
+		return events.APIGatewayProxyResponse{StatusCode: 500}, err
 	}
 
 	return events.APIGatewayProxyResponse{
-		StatusCode: 200,
+		StatusCode: 201,
 	}, nil
 }
 
