@@ -14,23 +14,6 @@ class TempLogTempDevice extends StatelessWidget {
             title: Text('2020/11/01 12:00'),
             subtitle: Text('36.5℃'),
           ),
-          ListTile(
-            title: Text('2020/11/01 12:00'),
-            subtitle: Text('36.5℃'),
-          ),
-          ListTile(
-            title: Text('2020/11/01 12:00'),
-            subtitle: Text('36.5℃'),
-          ),
-          ListTile(
-            title: Text('2020/11/01 12:00'),
-            subtitle: Text('36.5℃'),
-          ),
-          ListTile(
-            title: Text('2020/11/01 12:00'),
-            subtitle: Text('36.5℃'),
-          ),
-
         ],
       )
 

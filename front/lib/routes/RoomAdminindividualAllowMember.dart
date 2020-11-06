@@ -13,21 +13,6 @@ class RoomAdminindividualAllowMember extends StatelessWidget {
           ListTile(
             title: Text('User Name A'),
           ),
-          ListTile(
-            title: Text('User Name B'),
-          ),
-          ListTile(
-            title: Text('User Name C'),
-          ),
-          ListTile(
-            title: Text('User Name D'),
-          ),
-          ListTile(
-            title: Text('User Name E'),
-          ),
-          ListTile(
-            title: Text('User Name F'),
-          ),
         ],
       )
     );

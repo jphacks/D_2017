@@ -16,7 +16,7 @@ class RoomAdminindividual extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Room 1'),
+        title: Text(_roomName),
       ),
       body: ListView(
         children: <Widget>[

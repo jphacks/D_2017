@@ -25,23 +25,7 @@ class TempLog extends StatelessWidget {
                 )
               },
             ),
-            
-          ),
-          Card(
-            child: ListTile(
-              title: Text('User Device 2'),
-              trailing: Icon(Icons.arrow_right),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TempLogTempDevice())
-                )
-              },
-            ),
-          ),
-
-
-          
+          ),    
           ListTile(title: Text('体温手動登録')),
           Card(
             child: ListTile(

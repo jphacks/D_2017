@@ -21,56 +21,6 @@ class RoomAdminindividualDenyMember extends StatelessWidget {
                 )
               },
           ),
-          ListTile(
-            title: Text('User Name P'),
-            trailing: Icon(Icons.arrow_right),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RoomAdminindividualDenySelect()),
-                )
-              },
-          ),
-          ListTile(
-            title: Text('User Name Q'),
-            trailing: Icon(Icons.arrow_right),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RoomAdminindividualDenySelect()),
-                )
-              },
-          ),
-          ListTile(
-            title: Text('User Name R'),
-            trailing: Icon(Icons.arrow_right),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RoomAdminindividualDenySelect()),
-                )
-              },
-          ),
-          ListTile(
-            title: Text('User Name S'),
-            trailing: Icon(Icons.arrow_right),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RoomAdminindividualDenySelect()),
-                )
-              },
-          ),
-          ListTile(
-            title: Text('User Name T'),
-            trailing: Icon(Icons.arrow_right),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RoomAdminindividualDenySelect()),
-                )
-              },
-          ),
         ],
       )
     );

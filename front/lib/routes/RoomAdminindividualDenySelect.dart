@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import './RoomAdminindividualDenyMember.dart';
 
 class RoomAdminindividualDenySelect extends StatelessWidget {
+  //ユーザ名も欲しいけど、任意のユーザIDをここに持ってこないとダメか
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -32,20 +32,7 @@ class RoomAdminMenu extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => RoomAdminindividual())
                 )
               },
-            ),
-            
-          ),
-          Card(
-            child: ListTile(
-              title: Text('Room 2'),
-              trailing: Icon(Icons.arrow_right),
-              onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RoomAdminindividual())
-                )
-              },
-            ),
+            ),        
           ),
         ],
       )
