@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './UserMenu.dart';
-import '../XD_Signup.dart';
+import './Signup.dart';
 
 class Login extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -90,7 +90,7 @@ class Login extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => XD_Signup()));
+                      builder: (context) => Signup()));
               },
               child: Text(
                 "アカウント登録はこちら",

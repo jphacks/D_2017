@@ -91,7 +91,7 @@ class Signup extends StatelessWidget {
                         builder: (context) => UserMenu()));
                   }
                 },
-                child: Text('ログイン'),
+                child: Text('送信'),
               ),
             ),
           ],
