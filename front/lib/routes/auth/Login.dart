@@ -111,10 +111,10 @@ class Login extends StatelessWidget {
         username: _mailAddressController.text,
         password: _passwordController.text);
     try {
-      await cognitoUser.authenticateUser(authDetails);
+      var session = await cognitoUser.authenticateUser(authDetails);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => UserMenu())
+        MaterialPageRoute(builder: (context) => UserMenu(session))
       );
     } catch (e) {
       await showDialog<int>(
