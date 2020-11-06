@@ -26,11 +26,11 @@ func GetTempLogHandleRequest(
 	userID := claims["sub"].(string)
 
 	// リクエストからoffsetとcountを取得
-	offset, err := strconv.Atoi(req.PathParameters["offset"])
+	offset, err := strconv.Atoi(req.QueryStringParameters["offset"])
 	if err != nil {
 		return events.APIGatewayProxyResponse{StatusCode: 400}, err
 	}
-	count, err := strconv.Atoi(req.PathParameters["count"])
+	count, err := strconv.Atoi(req.QueryStringParameters["count"])
 	if err != nil {
 		return events.APIGatewayProxyResponse{StatusCode: 400}, err
 	}
