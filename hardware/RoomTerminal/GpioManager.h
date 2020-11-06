@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GPIOMANAGER_H_
+#define _GPIOMANAGER_H_
 
 #include <Arduino.h>
 #include <Ticker.h>
@@ -36,3 +37,5 @@ private:
   Color current_color;
   Ticker ledBlinker;
 };
+
+#endif

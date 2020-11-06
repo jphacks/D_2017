@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _NFCREADER_H_
+#define _NFCREADER_H_
 
 #include <Arduino.h>
 #include <HkNfcRw.h>
@@ -38,3 +39,5 @@ private:
   void clearCardInfo();
   void printCardInfo();
 };
+
+#endif

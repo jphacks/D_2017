@@ -1,11 +1,12 @@
+#include <Arduino.h>
+#include <U8g2lib.h>
+#include <Wire.h>
 #include "GpioManager.h"
 #include "NFCReader.h"
 #include "NetworkManager.h"
 #include "DisplayManager.h"
 #include "BLEWifiConfigure.h"
-#include <U8g2lib.h>
-#include <Wire.h>
-#include <Arduino.h>
+#include "AWSIoTCore.h"
 
 // OLED Library
 U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C oled(U8G2_R0, U8X8_PIN_NONE);
@@ -39,7 +40,7 @@ void setup()
   bleWifiConf.BLEWifiConfigureInit(&gpioMan, &dispMan, &netMan);
 
   Serial.println("JPHACKS2020 NFC Program.");
-  dispMan.DrawSplashScreen("1.1.0");
+  dispMan.DrawSplashScreen("1.2.0");
   gpioMan.setLEDColor(GpioManager::Color::GREEN, 0);
 
   // Conf Mode Check
@@ -53,46 +54,98 @@ void setup()
   // Connect to Wifi
   netMan.connectWifi();
   netMan.setupNTP();
-  netMan.setupIoTCore();
+  if (!setupIoTCore())
+  {
+    while (true)
+      ;
+  }
+
+  entry_res = IDLE;
 }
 
 void loop()
 {
   // NTP
-  if (!netMan.getNTPTime(localtime_str, 30)) {
+  if (!netMan.getNTPTime(localtime_str, 30))
+  {
     showNTPError();
     delay(5000);
     netMan.setupNTP();
   }
-  
+
   // Check AWS IoT Core Connection
-  if (!netMan.isIoTCoreConnected()) {
+  if (!netMan.isIoTCoreConnected())
+  {
     showIoTCoreError();
     delay(5000);
-    netMan.setupIoTCore();
+    setupIoTCore();
   }
 
   // New Arriving Card Process
-  if (nfcReader.readCard())
+  if (entry_res == IDLE)
   {
-    gpioMan.setLEDColor(GpioManager::Color::GREEN, 50);
+    dispMan.DrawWaitCard(localtime_str);
 
-    // AWS IoT MQTT Publish
-    netMan.publishToIoTCore(nfcReader.card_info.idm);
-    gpioMan.ringBuzzer(100);
+    if (nfcReader.readCard())
+    {
+      gpioMan.setLEDColor(GpioManager::Color::GREEN, 50);
 
-    gpioMan.setLEDColor(GpioManager::Color::GREEN, 0);
-    delay(1000);
+      // AWS IoT MQTT Publish
+      if (!netMan.publishToIoTCore(nfcReader.card_info.idm))
+      {
+        showIoTCoreError();
+      }
+
+      gpioMan.setLEDColor(GpioManager::Color::GREEN, 0);
+    }
   }
-
-  // Display
-  dispMan.DrawWaitCard(localtime_str);
+  else if (entry_res != ASKING)
+  {
+    Serial.println(entry_res);
+    showCardResult();
+    entry_res = IDLE;
+  }
 
   // Wifi Health Check
   if (WiFi.status() != WL_CONNECTED)
   {
     showWifiError();
     netMan.connectWifi();
+  }
+}
+
+bool setupIoTCore()
+{
+  if (!netMan.setupIoTCore())
+  {
+    showIoTCoreError();
+    return false;
+  }
+
+  dispMan.DrawWaitSubscribe();
+  // Wait for starting MQTT Client
+  delay(5000);
+
+  if (!setupIoTCoreSubscribe())
+  {
+    showIoTCoreError();
+    return false;
+  }
+
+  return true;
+}
+
+void showCardResult()
+{
+  dispMan.DrawCardResult(entry_res);
+  if (entry_res == REJECT || entry_res == UNKNOWN)
+  {
+    gpioMan.ringBuzzer(2000);
+  }
+  else
+  {
+    gpioMan.ringBuzzer(100);
+    delay(1000);
   }
 }
 

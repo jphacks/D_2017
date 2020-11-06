@@ -1,10 +1,12 @@
-#pragma once
+#ifndef _DISPLAYMANAGER_H_
+#define _DISPLAYMANAGER_H_
 
 #include <Arduino.h>
 #include <U8g2lib.h>
 #include <Wire.h>
 #include <Ticker.h>
 #include "GpioManager.h"
+#include "AWSIoTCore.h"
 
 void blinkMsg(bool *flag);
 
@@ -15,8 +17,10 @@ public:
     void DrawSplashScreen(const char *version);
     void DrawWifiConnection(char *SSID);
     void DrawWaitIoTCore();
+    void DrawWaitSubscribe();
     void DrawWaitCard(char *dt_str);
-    void DrawCardInfo(char *idm);
+    void DrawAsking(char *idm);
+    void DrawCardResult(ENTRY_RESULT res);
     void DrawSetupMode();
     void DrawSetupFinish();
     void DrawWifiError();
@@ -28,3 +32,5 @@ private:
     Ticker msgBlinker;
     bool msg_flag;
 };
+
+#endif

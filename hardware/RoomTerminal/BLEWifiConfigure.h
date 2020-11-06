@@ -1,3 +1,6 @@
+#ifndef _BLEWIFICONFIGURE_H_
+#define _BLEWIFICONFIGURE_H_
+
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
@@ -46,3 +49,5 @@ private:
         BLEWifiConfigure *bleWifiConf;
     };
 };
+
+#endif

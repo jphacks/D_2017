@@ -68,6 +68,23 @@ void DisplayManager::DrawWaitIoTCore()
     } while (u8g2->nextPage());
 }
 
+void DisplayManager::DrawWaitSubscribe()
+{
+    u8g2->setFont(u8g2_font_profont12_mf);
+    u8g2->setFontDirection(0);
+    u8g2->firstPage();
+    do
+    {
+        u8g2->setDrawColor(0);
+        u8g2->setCursor(20, 10);
+        u8g2->print(" Connect IoT ");
+
+        u8g2->setDrawColor(1);
+        u8g2->setCursor(0, 26);
+        u8g2->print("Subscribing IoT Core");
+    } while (u8g2->nextPage());
+}
+
 void DisplayManager::DrawWaitCard(char *dt_str)
 {
     u8g2->setFont(u8g2_font_b16_t_japanese3);
@@ -86,28 +103,59 @@ void DisplayManager::DrawWaitCard(char *dt_str)
         }
         else
         {
-            // char time_str[30];
-            // strcpy(time_str, dt_str + 11);
-            // time_str[8] = 0x00;
-
             u8g2->setCursor(32, 31);
-            // u8g2->print(time_str);
             u8g2->print(dt_str);
         }
 
     } while (u8g2->nextPage());
 }
 
-void DisplayManager::DrawCardInfo(char *idm)
+void DisplayManager::DrawAsking(char *idm)
 {
+    u8g2->setFont(u8g2_font_b16_t_japanese3);
+    u8g2->setFontDirection(0);
     u8g2->setDrawColor(1);
     u8g2->firstPage();
     do
     {
-        u8g2->setFont(u8g2_font_unifont_t_japanese1);
-        u8g2->setFontDirection(0);
-        u8g2->setCursor(0, 10);
+        u8g2->setCursor(16, 15);
+        u8g2->print("問い合わせ中");
+        u8g2->setCursor(8, 31);
         u8g2->print(idm);
+    } while (u8g2->nextPage());
+}
+
+void DisplayManager::DrawCardResult(ENTRY_RESULT res)
+{
+    String msg;
+    if (res == ACCEPT)
+    {
+        msg = "入室しました";
+    }
+    else if (res == EXIT)
+    {
+        msg = "退室しました";
+    }
+    else if (res == REJECT)
+    {
+        msg = "入室できません!!";
+    }
+    else if (res == UNKNOWN)
+    {
+        msg = "不正コマンド";
+    }
+
+    u8g2->setFont(u8g2_font_unifont_t_japanese1);
+    u8g2->setFontDirection(0);
+    u8g2->setDrawColor(1);
+    u8g2->firstPage();
+    do
+    {
+        u8g2->setCursor(32, 15);
+        u8g2->print(" 判定結果 ");
+
+        u8g2->setCursor(8, 31);
+        u8g2->print(msg);
 
     } while (u8g2->nextPage());
 }

@@ -95,5 +95,5 @@ void NFCReader::printCardInfo()
   // Console log
   Serial.print("[Info] Card IDm   : ");
   Serial.println(card_info.idm);
-  displayMan->DrawCardInfo(card_info.idm);
+  displayMan->DrawAsking(card_info.idm);
 }
