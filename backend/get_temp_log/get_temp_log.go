@@ -27,18 +27,18 @@ func GetTempLogHandleRequest(
 	// リクエストからoffsetとcountを取得
 	offset, err := strconv.Atoi(req.PathParameters["offset"])
 	if err != nil {
-		return events.APIGatewayProxyResponse{}, err
+		return events.APIGatewayProxyResponse{StatusCode: 400}, err
 	}
 	count, err := strconv.Atoi(req.PathParameters["count"])
 	if err != nil {
-		return events.APIGatewayProxyResponse{}, err
+		return events.APIGatewayProxyResponse{StatusCode: 400}, err
 	}
 
 	// logic呼び出し
 	logic := newGetTempLogLogic(repository.NewBodyTemperatureRepository())
 	templogs, err := logic.handle(userID, int(offset), int(count))
 	if err != nil {
-		return events.APIGatewayProxyResponse{}, err
+		return events.APIGatewayProxyResponse{StatusCode: 500}, err
 	}
 
 	return events.APIGatewayProxyResponse{
