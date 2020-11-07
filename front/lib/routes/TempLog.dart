@@ -26,7 +26,7 @@ class TempLog extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TempLogTempDevice())
+                  MaterialPageRoute(builder: (context) => TempLogTempDevice(_session))
                 )
               },
             ),
