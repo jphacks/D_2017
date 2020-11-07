@@ -4,15 +4,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/jphacks/D_2017/repository"
-	"github.com/jphacks/D_2017/response"
 
 	"github.com/jphacks/D_2017/model"
 )
 
-type mockCardRepository struct {}
+type mockCardRepository struct{}
+
 func (cardRepository *mockCardRepository) Insert(record *model.Card) (*model.Card, error) {
 	return nil, nil
 }
@@ -21,56 +19,61 @@ func (cardRepository *mockCardRepository) DeleteByIDm(IDm string) error {
 }
 func (cardRepository *mockCardRepository) SelectByIDm(IDm string) (*model.Card, error) {
 	return &model.Card{
-		IDm: "0000000000000000",
+		IDm:    "0000000000000000",
 		UserID: "test-user",
 	}, nil
 }
 func newMockCardRepository() repository.CardRepositoryInterface {
 	return &mockCardRepository{}
 }
-type mockRoomRepository struct {}
+
+type mockRoomRepository struct{}
+
 func newMockRoomRepository() repository.RoomRepositoryInterface {
 	return &mockRoomRepository{}
 }
-func (r *mockRoomRepository) Insert(*model.Room) (*model.Room, error){
+func (r *mockRoomRepository) Insert(*model.Room) (*model.Room, error) {
 	return nil, nil
 }
 
-func (r *mockRoomRepository) Update(*model.Room) (*model.Room, error){
+func (r *mockRoomRepository) Update(*model.Room) (*model.Room, error) {
 	return nil, nil
 }
 
 func (r *mockRoomRepository) SelectByID(int) (*model.Room, error) {
 	return &model.Room{
-		RoomID: 42,
-		Name: "room1",
-		LimitNumber: 2, 
+		RoomID:               42,
+		Name:                 "room1",
+		LimitNumber:          2,
 		LimitBodyTemperature: 37.0,
-		AllowMissing: true,
+		AllowMissing:         true,
 	}, nil
 }
+
 type mockReaderRepository struct{}
+
 func newMcokReaderRepository() repository.ReaderRepositoryInterface {
 	return &mockReaderRepository{}
 }
-func (r *mockReaderRepository) Insert(*model.Reader) (*model.Reader, error){
+func (r *mockReaderRepository) Insert(*model.Reader) (*model.Reader, error) {
 	return nil, nil
 }
-func (r *mockReaderRepository) SelectByUserID(string) (*[]model.Reader, error){
+func (r *mockReaderRepository) SelectByUserID(string) (*[]model.Reader, error) {
 	return nil, nil
 }
-func (r *mockReaderRepository) SelectByRoomID(int) (*[]model.Reader, error){
+func (r *mockReaderRepository) SelectByRoomID(int) (*[]model.Reader, error) {
 	return nil, nil
 }
 func (r *mockReaderRepository) SelectByMACAddress(macAddress string) (*model.Reader, error) {
 	return &model.Reader{
 		MACAddress: "0000000000000000",
-		UserID: "test-user",
-		RoomID: 42,
-	},nil
+		UserID:     "test-user",
+		RoomID:     42,
+	}, nil
 }
 
-type mockBodyTemperatureRepository struct {}
+type mockBodyTemperatureRepository struct{}
+
 func newMockBodyTemperatureRepository() repository.BodyTemperatureRepositoryInterface {
 	return &mockBodyTemperatureRepository{}
 }
@@ -83,7 +86,7 @@ func (m *mockBodyTemperatureRepository) UpdateIsTrustedByID(bool, int) (*model.B
 func (m *mockBodyTemperatureRepository) SelectByID(int) (*model.BodyTemperature, error) {
 	return nil, nil
 }
-func (m *mockBodyTemperatureRepository) SelectByUserID(string, int,int) (*[]model.BodyTemperature, error) {
+func (m *mockBodyTemperatureRepository) SelectByUserID(string, int, int) (*[]model.BodyTemperature, error) {
 	return nil, nil
 }
 func (m *mockBodyTemperatureRepository) SelectByUserIDBetween(userID string, since time.Time, until time.Time) (*[]model.BodyTemperature, error) {
@@ -121,19 +124,5 @@ func (m *mockBodyTemperatureRepository) SelectByUserIDBetween(userID string, sin
 	return &res, nil
 }
 
-type mockLogRepository struct {}
-func newMockLogRepository() repository.LogRepositoryInterface {
-	return &mockLogRepository{}
-}
-func (r *mockLogRepository) Insert(*model.Log) (*model.Log, error) {
-	return nil, nil
-}
-func (r *mockLogRepository) Select
-func (r *mockLogRepository) UpdateLeftByID
-
-
-
-
 func TestHandle(t *testing.T) {
-
 }
