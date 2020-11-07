@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/jphacks/D_2017/model"
 	"github.com/jphacks/D_2017/repository"
 )
@@ -25,6 +27,7 @@ func (logic *registerIdmLogic) handle(idm string, userID string) (*model.Card, e
 	// ユーザが存在しているか確認
 	user, err := logic.userRepository.SelectByID(userID)
 	if err != nil {
+		fmt.Println("Error in userRepository.SelectByID")
 		return nil, err
 	}
 

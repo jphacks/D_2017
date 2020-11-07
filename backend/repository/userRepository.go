@@ -55,7 +55,7 @@ func (repository *userRepository) SelectByID(id string) (*model.User, error) {
 	}
 
 	var resultID string
-	if err := db.client.QueryRow(userSelectByID).Scan(&resultID); err != nil {
+	if err := db.client.QueryRow(userSelectByID, id).Scan(&resultID); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, nil
 		}
