@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
@@ -45,7 +47,7 @@ class RegICCard extends StatelessWidget {
 
                 var response = await http.post(DotEnv().env['API_BASE'] + '/card',
                   headers: {'Authorization': _session.getIdToken().getJwtToken()},
-                  body: {'IDm': res.id});
+                  body: json.encode({'idm': res.id.replaceFirst('0x', '')}));
 
                 if(response.statusCode == 201) {
                   await showDialog<int>(

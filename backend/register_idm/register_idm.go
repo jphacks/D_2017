@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -28,6 +29,8 @@ func RegisterIDmHandleRequest(
 	}
 	userID := claims["sub"].(string)
 
+	fmt.Println(req.Body)
+
 	// reqbodyからIDmを取得
 	var reqbody reqBody
 	err := json.Unmarshal([]byte(req.Body), &reqbody)
@@ -40,6 +43,7 @@ func RegisterIDmHandleRequest(
 	logic := newRegisterIdmLogic(repository.NewCardRepository(), repository.NewUserRepository())
 	_, err = logic.handle(idm, userID)
 	if err != nil {
+		fmt.Println("Error in cardRepository.Insert")
 		return events.APIGatewayProxyResponse{StatusCode: 500}, err
 	}
 
