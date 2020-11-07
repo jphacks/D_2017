@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 import './UserMenu.dart';
 
 class TempReqest extends StatelessWidget {
   final CognitoUserSession _session;
   final _tempKey = GlobalKey<FormState>();
-  String _nowTemp = '';
+  final _tempController = TextEditingController();
 
   TempReqest(this._session);
 
@@ -27,26 +31,61 @@ class TempReqest extends StatelessWidget {
                   labelText: "現在の体温を入力", // ラベル
                   hintText: '体温', // 入力ヒント
                 ),
-                autovalidate: false, // 入力変化しても自動でチェックしない。trueにすると初期状態および入力が変化する毎に自動でvalidatorがコールされる
                 validator: (value) { // _formKey.currentState.validate()でコールされる
                   if (value.isEmpty) {
                     return '入力してください'; // エラー表示のメッセージを返す
                   }
                   return null; // 問題ない場合はnullを返す
                 },
-                onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
-                  _nowTemp = value;
-                },
+                controller: _tempController,
               ),
             ),
             Align(
               alignment: Alignment.center,
               child: RaisedButton(
-                onPressed: () {
+                onPressed: () async {
                   // 各Fieldのvalidatorを呼び出す
                   if (_tempKey.currentState.validate()) {
-                    // 入力データが正常な場合の処理
-                    this._tempKey.currentState.save();
+                    var response = await http.post(DotEnv().env['API_BASE'] + '/temperature/body',
+                    headers: {'Authorization': _session.getIdToken().getJwtToken()},
+                    body: json.encode({
+                      'body_temperature': double.parse(_tempController.text),
+                      'mac_address': "FROM_APP",
+                    }));
+                    if(response.statusCode == 201) {
+                      await showDialog<int>(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('登録に成功しました!'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('OK'),
+                                onPressed: () => Navigator.of(context).pop(1),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      await showDialog<int>(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('エラー'),
+                            content: Text(response.body),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('OK'),
+                                onPressed: () => Navigator.of(context).pop(1),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                     Navigator.push(
                     context,
                     MaterialPageRoute(
