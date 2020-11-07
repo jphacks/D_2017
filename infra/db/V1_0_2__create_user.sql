@@ -1,0 +1,3 @@
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`));

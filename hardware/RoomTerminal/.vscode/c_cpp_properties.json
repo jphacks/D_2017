@@ -1,0 +1,30 @@
+// MacのVSCodeでArduinoする用のC/C++拡張設定
+{
+    "env": {
+        "APP_PATH": "/Applications/Arduino.app/Contents/Java",
+        "PACKAGES_PATH": "${env:HOME}/Library/Arduino15/packages",
+        "USER_PATH": "${env:HOME}/Documents/Arduino"
+    },
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                // "${env:APP_PATH}/tools/**",
+                // "${env:APP_PATH}/hardware/**",
+                // "${env:APP_PATH}/libraries/**",
+                "${env:PACKAGES_PATH}/**",
+                "${env:USER_PATH}/libraries/**",
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "ARDUINO"
+            ],
+            "macFrameworkPath": [],
+            "compilerPath": "/usr/local/bin/gcc",
+            "cStandard": "gnu18",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,19 @@
+version: "3"
+services:
+    mysql:
+        image: "mysql:5.7"
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: local
+            MYSQL_USER: local_user
+            MYSQL_PASSWORD: password
+        ports:
+            - "3306:3306"
+    flyway:
+        image: "flyway/flyway"
+        volumes:
+            - ./infra/db:/flyway/sql
+        command: -configFiles="sql/flyway-local.conf" migrate
+        depends_on:
+            - mysql
+        restart: always
