@@ -1,6 +1,6 @@
 # ReCOVery
 
-[![ReCOVery](https://jphacks.com/wp-content/uploads/2020/09/JPHACKS2020_ogp.jpg)](https://www.youtube.com/watch?v=G5rULR53uMk)
+[![ReCOVery](https://jphacks.com/wp-content/uploads/2020/09/JPHACKS2020_ogp.jpg)](https://kc3.me/conf/jphack2020)
 
 ## 製品概要
 ### COVID-19 × Tech
