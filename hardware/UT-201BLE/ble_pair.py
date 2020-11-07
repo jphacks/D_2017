@@ -54,6 +54,8 @@ async def run(loop):
         write_value = bytearray(b'\x02\x01\x03')
         await client.write_gatt_char(CUSTOM_CHARA_UUID, write_value)
 
+        await asyncio.sleep(5.0)
+
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(run(loop))
