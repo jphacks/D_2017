@@ -64,7 +64,7 @@ def readFloatLE(buffer, index):
       mantissa = -1 * (~(mantissa - 0x01) & 0x00ffffff)
 
     # exponenxtial = (data >> 24) & 0xff
-    exponential = 1
+    exponential = -1
     return mantissa * math.pow(10, exponential)
 
 async def run(loop):
