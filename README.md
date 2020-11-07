@@ -79,20 +79,37 @@ ReCOVeryでは、『意識して』検温を行う点に注目し、『無意識
 ### 活用した技術
 * BLE(Bluetooth Low Energy)
 * NFC
+* Wi-Fi
+* REST API
+* IoT（センシングデバイス）
 
 #### API・データ
 * AWS lambda
 * AWS Gateway
+* AWS S3
+* AWS cognito
+* AWS RDS
+* AWS IoT
 
 #### フレームワーク・ライブラリ・モジュール
-* 
-* 
+* Flutter
+* Arduino
+* arduino-esp32
+* 赤外線温度センサ TMP006
+* BLEモジュール ISP1507
+* NFCモジュール RCS620S
+* Flyway
+* AWS EC2
+* Go
 
 #### デバイス
-* 
-* 
+* arduino-esp32
+* スマートフォン(iOS,Android)
+* 体温計測デバイス
 
 ### 独自技術
 #### ハッカソンで開発した独自機能・技術
-* 独自で開発したものの内容をこちらに記載してください
-* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
+* 首に巻いて自動的に体温を計測するチョーカー型デバイス (hardware/choker)
+* 部屋の入り口に設置しICカードリーダを読み取るIoTデバイス (hardware/RoomTerminal)
+* Flutterで動作する専用アプリ (front)
+* Go言語でAWS lambdaを使用したAPI (backend)
