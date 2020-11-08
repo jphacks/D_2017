@@ -1,6 +1,6 @@
 # ReCOVery
 
-[![ReCOVery](image.png)](https://kc3.me/conf/jphack2020)
+[![ReCOVery](image.png)](https://www.youtube.com/watch?v=5nFhBQxESEI)
 
 ## 製品概要
 ### COVID-19 × Tech
@@ -17,7 +17,7 @@
 
 また、自動的に検温したデータを入室時に参照することにより、当日の体温だけでなく、感染症潜伏期間といわれる14日間のデータの体温から、入室可否を現地での検温なしに判断することができるではないかと考えている。
 
-なお、プロダクト名である『ReCOVery』は、《Record》、《COVID-19》、《Everyday》の3つの単語を組み合わせ、「毎日体温を記録するデバイス」という意味が込められている。
+なお、プロダクト名である『ReCOVery』は、《Record》、《COVID-19》、《Everyday》の3つの単語を組み合わせ、「無意識のうちに、毎日体温を記録するデバイス」という意味が込められている。
 
 ### 製品説明（具体的な製品の説明）
 #### 日々の体温計測(エンドユーザ)
@@ -90,6 +90,10 @@ ReCOVeryでは、『意識して』検温を行う点に注目し、『無意識
 * AWS cognito
 * AWS RDS
 * AWS IoT
+
+AWS系のデータフローは以下の画像の通りである。
+
+![AWSデータフロー図](https://raw.githubusercontent.com/wiki/jphacks/D_2017/aws.png)
 
 #### フレームワーク・ライブラリ・モジュール
 * Flutter
