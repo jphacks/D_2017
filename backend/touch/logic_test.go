@@ -211,7 +211,7 @@ func TestHandle(t *testing.T) {
 	logic := newTouchLogic(newMockLogRepository(), newMockReaderRepository(), newMockCardRepository(), newMockRoomRepository(), newMockBodyTemperatureRepository())
 
 	//体温が高いので入室できなかった
-	unixtime := "1420029024"
+	var unixtime int64 = 1420029024
 	idm := "0000000000000000"
 	macAddress := "00:00:00:00:00"
 	res, err := logic.handle(unixtime, idm, macAddress)

@@ -2,29 +2,37 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/iotdataplane"
 	"github.com/jphacks/D_2017/repository"
 
 	_ "github.com/go-sql-driver/mysql" // グローバル設定を宣言(DBドライバの設定)
-
-	"github.com/aws/aws-sdk-go/aws/session"
-	iot "github.com/aws/aws-sdk-go/service/iotdataplane"
 )
 
 // Event - 送られてくるjson
 type Event struct {
-	Timestamp  string `json:"timestamp"`
+	Timestamp  int64  `json:"timestamp"`
 	Idm        string `json:"idm"`
 	MacAddress string `json:"mac_address"`
 }
 
 func eventHandler(ctx context.Context, event Event) (string, error) {
-	client := iot.New(session.Must(session.NewSession()))
+	client := iotdataplane.New(session.Must(session.NewSession()), &aws.Config{
+		Endpoint: aws.String("a7xwb0k1wq76j-ats.iot.us-east-2.amazonaws.com"),
+		Region:   aws.String("us-east-2"),
+	})
+
+	topic := "entry/result"
+	var qos int64 = 0
 
 	// イベントからデータ取得
 	unixtime := event.Timestamp
 	idm := event.Idm
+	fmt.Println(idm)
 	macAddress := event.MacAddress
 
 	logic := newTouchLogic(repository.NewLogRepository(),
@@ -34,9 +42,7 @@ func eventHandler(ctx context.Context, event Event) (string, error) {
 		repository.NewBodyTemperatureRepository())
 
 	payload, err := logic.handle(unixtime, idm, macAddress)
-	topic := `"entry/result"`
-	var qos int64 = 0
-	publishInput := iot.PublishInput{
+	publishInput := iotdataplane.PublishInput{
 		Topic:   &topic,
 		Qos:     &qos,
 		Payload: []byte(payload),
@@ -44,9 +50,13 @@ func eventHandler(ctx context.Context, event Event) (string, error) {
 	if err != nil {
 		publishInput.Payload = []byte(`{"result":"reject"}`)
 		client.Publish(&publishInput)
+		fmt.Println(err)
 		return "failed", err
 	}
-	client.Publish(&publishInput)
+	_, err = client.Publish(&publishInput)
+	if err != nil {
+		return "failed", err
+	}
 	return "success", nil
 }
 
