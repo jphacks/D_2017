@@ -2,13 +2,14 @@ package main
 
 import (
 	"context"
-	"log"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/jphacks/D_2017/repository"
 
-	mqtt "github.com/eclipse/paho.mqtt.golang"
 	_ "github.com/go-sql-driver/mysql" // グローバル設定を宣言(DBドライバの設定)
+
+	"github.com/aws/aws-sdk-go/aws/session"
+	iot "github.com/aws/aws-sdk-go/service/iotdataplane"
 )
 
 // Event - 送られてくるjson
@@ -19,16 +20,12 @@ type Event struct {
 }
 
 func eventHandler(ctx context.Context, event Event) (string, error) {
+	client := iot.New(session.Must(session.NewSession()))
+
 	// イベントからデータ取得
 	unixtime := event.Timestamp
 	idm := event.Idm
 	macAddress := event.MacAddress
-
-	// mqtt初期化処理
-	client := mqtt.NewClient(mqtt.NewClientOptions())
-	if token := client.Connect(); token.Wait() && token.Error() != nil {
-		log.Fatalf("Mqtt error: %s", token.Error())
-	}
 
 	logic := newTouchLogic(repository.NewLogRepository(),
 		repository.NewReaderRepository(),
@@ -37,11 +34,19 @@ func eventHandler(ctx context.Context, event Event) (string, error) {
 		repository.NewBodyTemperatureRepository())
 
 	payload, err := logic.handle(unixtime, idm, macAddress)
+	topic := `"entry/result"`
+	var qos int64 = 0
+	publishInput := iot.PublishInput{
+		Topic:   &topic,
+		Qos:     &qos,
+		Payload: []byte(payload),
+	}
 	if err != nil {
-		client.Publish("iot-data", 0, false, `{"result":"reject"}`)
+		publishInput.Payload = []byte(`{"result":"reject"}`)
+		client.Publish(&publishInput)
 		return "failed", err
 	}
-	client.Publish("iot-data", 0, false, payload)
+	client.Publish(&publishInput)
 	return "success", nil
 }
 
