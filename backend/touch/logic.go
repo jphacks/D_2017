@@ -88,7 +88,7 @@ func (logic *touchLogic) handle(unixtime string, idm string, macAddress string) 
 	// 入室可能フラグ
 	canEnter := true
 
-	// 14日分のログが毎日あるか確認する用のmap
+	// 14+1日分のログが毎日あるか確認する用のmap
 	dayCountMap := map[int]int{}
 
 	for _, temp := range *temperatures {
@@ -102,7 +102,7 @@ func (logic *touchLogic) handle(unixtime string, idm string, macAddress string) 
 	}
 
 	if !room.AllowMissing {
-		canEnter = canEnter && len(dayCountMap) >= 14
+		canEnter = canEnter && len(dayCountMap) >= 15
 	}
 
 	//入れた場合
