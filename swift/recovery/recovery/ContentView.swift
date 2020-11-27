@@ -16,6 +16,9 @@ struct ContentView: View {
             VStack {
                 HStack{
                     Image(systemName: "envelope")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20.0, height: 15.0)
                     TextField("Mail Address", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.emailAddress)
@@ -24,7 +27,9 @@ struct ContentView: View {
                 
                 HStack{
                     Image(systemName: "key")
-                    
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20.0, height: 15.0)
                     SecureField("Password", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
@@ -58,6 +63,7 @@ struct ContentView: View {
             }
             .padding()
             .navigationTitle("ReCOVery LOGIN")
+            .navigationBarBackButtonHidden(true)
         }
     }
                 

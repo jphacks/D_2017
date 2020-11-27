@@ -1,32 +1,32 @@
 //
-//  EnterRoomListView.swift
+//  TempLogView.swift
 //  recovery
 //
-//  Created by kanon on 2020/11/27.
+//  Created by kanon on 2020/11/28.
 //
 
 import SwiftUI
 
-struct EnterRoomListView: View {
+struct TempLogView: View {
     var body: some View {
         List{
-            Section(header: Text("承認済み申請一覧")){
+            Section(header: Text("機器別検温データ")){
                 NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
-                    Text("Room 1")
+                    Text("User Device 1")
                 }
             }
-            Section(header: Text("未承認申請一覧")){
+            Section(header: Text("体温手動登録")){
                 NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
-                    Text("Room 4")
+                    Text("体温手動登録")
                 }
             }
         }
-        .navigationTitle(Text("申請一覧"))
+        .navigationTitle(Text("検温ログ"))
     }
 }
 
-struct EnterRoomListView_Previews: PreviewProvider {
+struct TempLogView_Previews: PreviewProvider {
     static var previews: some View {
-        EnterRoomListView()
+        TempLogView()
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E90027FD25716D680043F5E3 /* TempLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90027FC25716D680043F5E3 /* TempLogView.swift */; };
+		E900281225716EA20043F5E3 /* AccountMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E900281125716EA20043F5E3 /* AccountMenuView.swift */; };
 		E9064CE92570F4C0001ACFE8 /* UserMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */; };
 		E9064CEE2570F936001ACFE8 /* EnterRoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9064CED2570F936001ACFE8 /* EnterRoomListView.swift */; };
 		E9AE80582570C2D600FEBE4C /* recoveryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE80572570C2D600FEBE4C /* recoveryApp.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E90027FC25716D680043F5E3 /* TempLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempLogView.swift; sourceTree = "<group>"; };
+		E900281125716EA20043F5E3 /* AccountMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMenuView.swift; sourceTree = "<group>"; };
 		E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuView.swift; sourceTree = "<group>"; };
 		E9064CED2570F936001ACFE8 /* EnterRoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterRoomListView.swift; sourceTree = "<group>"; };
 		E9AE80542570C2D600FEBE4C /* recovery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = recovery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +80,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E90027FB25716D4D0043F5E3 /* TempLog */ = {
+			isa = PBXGroup;
+			children = (
+				E90027FC25716D680043F5E3 /* TempLogView.swift */,
+			);
+			path = TempLog;
+			sourceTree = "<group>";
+		};
+		E900281025716E8F0043F5E3 /* AccountMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E900281125716EA20043F5E3 /* AccountMenuView.swift */,
+			);
+			path = AccountMenu;
+			sourceTree = "<group>";
+		};
 		E9AE804B2570C2D600FEBE4C = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +119,8 @@
 		E9AE80562570C2D600FEBE4C /* recovery */ = {
 			isa = PBXGroup;
 			children = (
+				E900281025716E8F0043F5E3 /* AccountMenu */,
+				E90027FB25716D4D0043F5E3 /* TempLog */,
 				E9AE80572570C2D600FEBE4C /* recoveryApp.swift */,
 				E9AE80592570C2D600FEBE4C /* ContentView.swift */,
 				E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */,
@@ -221,6 +243,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = E9AE804B2570C2D600FEBE4C;
 			productRefGroup = E9AE80552570C2D600FEBE4C /* Products */;
@@ -265,6 +288,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90027FD25716D680043F5E3 /* TempLogView.swift in Sources */,
+				E900281225716EA20043F5E3 /* AccountMenuView.swift in Sources */,
 				E9064CEE2570F936001ACFE8 /* EnterRoomListView.swift in Sources */,
 				E9AE805A2570C2D600FEBE4C /* ContentView.swift in Sources */,
 				E9AE80582570C2D600FEBE4C /* recoveryApp.swift in Sources */,
@@ -355,7 +380,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -410,7 +435,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
