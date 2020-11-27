@@ -11,7 +11,7 @@ struct AccountMenuView: View {
     var body: some View {
         List{
             Section(header: Text("アカウント情報設定")){
-                NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
+                NavigationLink(destination: AccountRegTempDeviceView()) {
                     Text("検温デバイス設定")
                 }
                 NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
