@@ -57,13 +57,18 @@ func (r *mockRoomRepository) Update(*model.Room) (*model.Room, error) {
 	return nil, nil
 }
 
-func (r *mockRoomRepository) SelectByID(int) (*model.Room, error) {
+func (r *mockRoomRepository) SelectByID(roomID int) (*model.Room, error) {
+	limit := 2
+	if roomID == 44 {
+		limit = 0
+	}
+
 	return &model.Room{
-		RoomID:               42,
+		RoomID:               roomID,
 		Name:                 "room1",
-		LimitNumber:          2,
+		LimitNumber:          limit,
 		LimitBodyTemperature: 37.0,
-		AllowMissing:         true,
+		AllowMissing:         roomID != 43,
 	}, nil
 }
 
@@ -82,10 +87,19 @@ func (r *mockReaderRepository) SelectByRoomID(int) (*[]model.Reader, error) {
 	return nil, nil
 }
 func (r *mockReaderRepository) SelectByMACAddress(macAddress string) (*model.Reader, error) {
+	var roomID int
+	if macAddress == "00:00:00:00:00" {
+		roomID = 42
+	} else if macAddress == "00:00:00:00:01" {
+		roomID = 43
+	} else {
+		roomID = 44
+	}
+
 	return &model.Reader{
-		MACAddress: "0000000000000000",
+		MACAddress: macAddress,
 		UserID:     "admin",
-		RoomID:     42,
+		RoomID:     roomID,
 	}, nil
 }
 
@@ -187,7 +201,7 @@ func (r *mockLogRepository) UpdateLeftAtByID(id int, LeftAt time.Time) (*model.L
 func TestHandle(t *testing.T) {
 	logic := newTouchLogic(newMockLogRepository(), newMockReaderRepository(), newMockCardRepository(), newMockRoomRepository(), newMockBodyTemperatureRepository())
 
-	//入室できなかった
+	//体温が高いので入室できなかった
 	unixtime := "1420029024"
 	idm := "0000000000000000"
 	macAddress := "00:00:00:00:00"
@@ -216,4 +230,21 @@ func TestHandle(t *testing.T) {
 	expect = `{"result":"exit"}`
 	assert.Equal(t, expect, res)
 
+	// 2週間分無いと死ぬ部屋からrejectされた
+	macAddress = "00:00:00:00:01"
+	idm = "0000000000000001"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect = `{"result":"reject"}`
+	assert.Equal(t, expect, res)
+
+	// 人数が一杯でrejectされた
+	macAddress = "00:00:00:00:02"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	assert.Equal(t, expect, res)
 }
