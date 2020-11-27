@@ -1,7 +1,6 @@
 package main
 
 import (
-	"strconv"
 	"time"
 
 	"github.com/jphacks/D_2017/model"
@@ -45,10 +44,9 @@ func enter(logic *touchLogic, userID string, roomID int) (string, error) {
 	return s, err
 }
 
-func (logic *touchLogic) handle(unixtime string, idm string, macAddress string) (string, error) {
+func (logic *touchLogic) handle(unixtime int64, idm string, macAddress string) (string, error) {
 	// 時刻生成
-	timeInt, _ := strconv.ParseInt(unixtime, 10, 64)
-	time := time.Unix(timeInt, 0)
+	time := time.Unix(unixtime, 0)
 
 	// userIDの特定
 	card, err := logic.cardRepository.SelectByIDm(idm)
