@@ -22,7 +22,7 @@ struct UserMenuView: View {
                 }
             }
             Section(header: Text("管理者メニュー")){
-                NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
+                NavigationLink(destination: RoomAdminMenuView()) {
                     Text("部屋管理メニュー")
                 }
             }
