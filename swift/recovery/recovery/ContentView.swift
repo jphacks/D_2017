@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var toUserMenuView = false
+    
     var body: some View {
         NavigationView{
             VStack {
@@ -28,7 +31,7 @@ struct ContentView: View {
                 }
                 .padding()
                 
-                Button(action: {}){
+                Button(action: { self.toUserMenuView = true }){
                     Text("ログイン")
                         .fontWeight(.medium)
                         .frame(minWidth: 160)
@@ -36,6 +39,9 @@ struct ContentView: View {
                         .padding(12)
                         .background(Color.accentColor)
                         .cornerRadius(8)
+                    NavigationLink(destination: UserMenuView(), isActive: $toUserMenuView) {
+                       EmptyView()
+                   }
                 }
                 Spacer()
                 Text("登録がお済みでない方")

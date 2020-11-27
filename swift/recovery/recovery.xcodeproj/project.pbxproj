@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9064CE92570F4C0001ACFE8 /* UserMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */; };
+		E9064CEE2570F936001ACFE8 /* EnterRoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9064CED2570F936001ACFE8 /* EnterRoomListView.swift */; };
 		E9AE80582570C2D600FEBE4C /* recoveryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE80572570C2D600FEBE4C /* recoveryApp.swift */; };
 		E9AE805A2570C2D600FEBE4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE80592570C2D600FEBE4C /* ContentView.swift */; };
 		E9AE805C2570C2D800FEBE4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9AE805B2570C2D800FEBE4C /* Assets.xcassets */; };
@@ -33,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuView.swift; sourceTree = "<group>"; };
+		E9064CED2570F936001ACFE8 /* EnterRoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterRoomListView.swift; sourceTree = "<group>"; };
 		E9AE80542570C2D600FEBE4C /* recovery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = recovery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9AE80572570C2D600FEBE4C /* recoveryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recoveryApp.swift; sourceTree = "<group>"; };
 		E9AE80592570C2D600FEBE4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 			children = (
 				E9AE80572570C2D600FEBE4C /* recoveryApp.swift */,
 				E9AE80592570C2D600FEBE4C /* ContentView.swift */,
+				E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */,
+				E9064CED2570F936001ACFE8 /* EnterRoomListView.swift */,
 				E9AE805B2570C2D800FEBE4C /* Assets.xcassets */,
 				E9AE80602570C2D800FEBE4C /* Info.plist */,
 				E9AE805D2570C2D800FEBE4C /* Preview Content */,
@@ -259,8 +265,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9064CEE2570F936001ACFE8 /* EnterRoomListView.swift in Sources */,
 				E9AE805A2570C2D600FEBE4C /* ContentView.swift in Sources */,
 				E9AE80582570C2D600FEBE4C /* recoveryApp.swift in Sources */,
+				E9064CE92570F4C0001ACFE8 /* UserMenuView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
