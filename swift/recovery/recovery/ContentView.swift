@@ -36,7 +36,7 @@ struct ContentView: View {
                 }
                 .padding()
                 
-                Button(action: { self.toUserMenuView = true }){
+                Button(action: { self.toUserMenuView = true }){ //actionにログイン処理を入れてね
                     Text("ログイン")
                         .fontWeight(.medium)
                         .frame(minWidth: 160)

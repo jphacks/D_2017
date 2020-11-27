@@ -11,14 +11,10 @@ struct EnterRoomListView: View {
     var body: some View {
         List{
             Section(header: Text("承認済み申請一覧")){
-                NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
-                    Text("Room 1")
-                }
+                Text("Room 1")
             }
             Section(header: Text("未承認申請一覧")){
-                NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
-                    Text("Room 4")
-                }
+                Text("Room 4")
             }
         }
         .navigationTitle(Text("申請一覧"))

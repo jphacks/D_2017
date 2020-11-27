@@ -16,12 +16,12 @@ struct TempLogView: View {
                 }
             }
             Section(header: Text("体温手動登録")){
-                NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
+                NavigationLink(destination: TempAddRequestView()) {
                     Text("体温手動登録")
                 }
             }
         }
-        .navigationTitle(Text("検温ログ"))
+        .navigationBarTitle(Text("検温ログ"))
     }
 }
 

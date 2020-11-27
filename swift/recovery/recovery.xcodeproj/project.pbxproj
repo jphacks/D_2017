@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E90027FD25716D680043F5E3 /* TempLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90027FC25716D680043F5E3 /* TempLogView.swift */; };
 		E900281225716EA20043F5E3 /* AccountMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E900281125716EA20043F5E3 /* AccountMenuView.swift */; };
+		E900282C257173BB0043F5E3 /* TempAddRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E900282B257173BB0043F5E3 /* TempAddRequestView.swift */; };
 		E9064CE92570F4C0001ACFE8 /* UserMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */; };
 		E9064CEE2570F936001ACFE8 /* EnterRoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9064CED2570F936001ACFE8 /* EnterRoomListView.swift */; };
 		E9AE80582570C2D600FEBE4C /* recoveryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE80572570C2D600FEBE4C /* recoveryApp.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		E90027FC25716D680043F5E3 /* TempLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempLogView.swift; sourceTree = "<group>"; };
 		E900281125716EA20043F5E3 /* AccountMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMenuView.swift; sourceTree = "<group>"; };
+		E900282B257173BB0043F5E3 /* TempAddRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAddRequestView.swift; sourceTree = "<group>"; };
 		E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuView.swift; sourceTree = "<group>"; };
 		E9064CED2570F936001ACFE8 /* EnterRoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterRoomListView.swift; sourceTree = "<group>"; };
 		E9AE80542570C2D600FEBE4C /* recovery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = recovery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				E90027FC25716D680043F5E3 /* TempLogView.swift */,
+				E900282B257173BB0043F5E3 /* TempAddRequestView.swift */,
 			);
 			path = TempLog;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				E90027FD25716D680043F5E3 /* TempLogView.swift in Sources */,
 				E900281225716EA20043F5E3 /* AccountMenuView.swift in Sources */,
 				E9064CEE2570F936001ACFE8 /* EnterRoomListView.swift in Sources */,
+				E900282C257173BB0043F5E3 /* TempAddRequestView.swift in Sources */,
 				E9AE805A2570C2D600FEBE4C /* ContentView.swift in Sources */,
 				E9AE80582570C2D600FEBE4C /* recoveryApp.swift in Sources */,
 				E9064CE92570F4C0001ACFE8 /* UserMenuView.swift in Sources */,
@@ -452,6 +456,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"recovery/Preview Content\"";
+				DEVELOPMENT_TEAM = R8SLM84ZFR;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = recovery/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -459,7 +464,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jp.k0ui1.dev.recovery;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.k0ui1.dev.recovery20;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -473,6 +478,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"recovery/Preview Content\"";
+				DEVELOPMENT_TEAM = R8SLM84ZFR;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = recovery/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -480,7 +486,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jp.k0ui1.dev.recovery;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.k0ui1.dev.recovery20;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
