@@ -81,18 +81,28 @@ func (logic *touchLogic) handle(unixtime string, idm string, macAddress string) 
 		return `{"result":"reject"}`, nil
 	}
 
-	// [TODO] allow_missingならログが2週間分あることを確認
-
 	// 体温チェック
 	twoWeekAgo := time.AddDate(0, 0, -14)
 	temperatures, _ := logic.bodyTemperatureRepository.SelectByUserIDBetween(userID, twoWeekAgo, time)
 
+	// 入室可能フラグ
 	canEnter := true
+
+	// 14+1日分のログが毎日あるか確認する用のmap
+	dayCountMap := map[int]int{}
+
 	for _, temp := range *temperatures {
 		if !temp.IsTrusted {
 			continue
 		}
+		if !room.AllowMissing {
+			dayCountMap[temp.CreatedAt.Day()]++
+		}
 		canEnter = canEnter && (temp.Temperature < room.LimitBodyTemperature)
+	}
+
+	if !room.AllowMissing {
+		canEnter = canEnter && len(dayCountMap) >= 15
 	}
 
 	//入れた場合

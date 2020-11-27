@@ -35,6 +35,14 @@ func (cardRepository *mockCardRepository) SelectByIDm(IDm string) (*model.Card, 
 		}, nil
 	}
 
+	// 15日分のログがるカード
+	if IDm == "0000000000000003" {
+		return &model.Card{
+			IDm:    IDm,
+			UserID: "fullLog-user",
+		}, nil
+	}
+
 	return &model.Card{
 		IDm:    "0000000000000001",
 		UserID: "ok-user",
@@ -57,13 +65,18 @@ func (r *mockRoomRepository) Update(*model.Room) (*model.Room, error) {
 	return nil, nil
 }
 
-func (r *mockRoomRepository) SelectByID(int) (*model.Room, error) {
+func (r *mockRoomRepository) SelectByID(roomID int) (*model.Room, error) {
+	limit := 2
+	if roomID == 44 {
+		limit = 0
+	}
+
 	return &model.Room{
-		RoomID:               42,
+		RoomID:               roomID,
 		Name:                 "room1",
-		LimitNumber:          2,
+		LimitNumber:          limit,
 		LimitBodyTemperature: 37.0,
-		AllowMissing:         true,
+		AllowMissing:         roomID != 43,
 	}, nil
 }
 
@@ -82,10 +95,19 @@ func (r *mockReaderRepository) SelectByRoomID(int) (*[]model.Reader, error) {
 	return nil, nil
 }
 func (r *mockReaderRepository) SelectByMACAddress(macAddress string) (*model.Reader, error) {
+	var roomID int
+	if macAddress == "00:00:00:00:00" {
+		roomID = 42
+	} else if macAddress == "00:00:00:00:01" {
+		roomID = 43
+	} else {
+		roomID = 44
+	}
+
 	return &model.Reader{
-		MACAddress: "0000000000000000",
+		MACAddress: macAddress,
 		UserID:     "admin",
-		RoomID:     42,
+		RoomID:     roomID,
 	}, nil
 }
 
@@ -107,34 +129,35 @@ func (m *mockBodyTemperatureRepository) SelectByUserID(string, int, int) (*[]mod
 	return nil, nil
 }
 func (m *mockBodyTemperatureRepository) SelectByUserIDBetween(userID string, since time.Time, until time.Time) (*[]model.BodyTemperature, error) {
-	var array [3]model.BodyTemperature
-	times := [3]time.Time{
-		time.Date(2014, time.December, 31, 12, 15, 24, 0, time.UTC),
-		time.Date(2014, time.December, 31, 12, 14, 24, 0, time.UTC),
-		time.Date(2014, time.December, 31, 12, 13, 24, 0, time.UTC),
-	}
+	var array [15]model.BodyTemperature
+	timeBase := time.Date(2014, time.December, 31-14, 12, 13, 24, 0, time.UTC)
 
 	var idSince int
 	var temperature float32
-	if userID == "ok-user" {
+	if userID != "reject-user" {
 		idSince = 42
 		temperature = 36.0
 	} else {
 		idSince = 21
 		temperature = 38.0
 	}
-	for i := 0; i < 3; i++ {
+
+	for i := 0; i < 15; i++ {
+		time := timeBase.AddDate(0, 0, i)
 		array[i] = model.BodyTemperature{
 			ID:          idSince + i,
 			UserID:      userID,
 			Temperature: temperature,
 			MACAddress:  "00:00:00:00:00",
 			IsTrusted:   true,
-			CreatedAt:   &times[i],
+			CreatedAt:   &time,
 		}
 	}
 
 	res := array[:]
+	if userID != "fullLog-user" {
+		res = array[12:]
+	}
 	return &res, nil
 }
 
@@ -187,7 +210,7 @@ func (r *mockLogRepository) UpdateLeftAtByID(id int, LeftAt time.Time) (*model.L
 func TestHandle(t *testing.T) {
 	logic := newTouchLogic(newMockLogRepository(), newMockReaderRepository(), newMockCardRepository(), newMockRoomRepository(), newMockBodyTemperatureRepository())
 
-	//入室できなかった
+	//体温が高いので入室できなかった
 	unixtime := "1420029024"
 	idm := "0000000000000000"
 	macAddress := "00:00:00:00:00"
@@ -216,4 +239,31 @@ func TestHandle(t *testing.T) {
 	expect = `{"result":"exit"}`
 	assert.Equal(t, expect, res)
 
+	// 2週間分無いと死ぬ部屋からrejectされた
+	macAddress = "00:00:00:00:01"
+	idm = "0000000000000001"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect = `{"result":"reject"}`
+	assert.Equal(t, expect, res)
+
+	// 2週間分のログがあったので入れた
+	idm = "0000000000000003"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect = `{"result":"accept"}`
+	assert.Equal(t, expect, res)
+
+	// 人数が一杯でrejectされた
+	macAddress = "00:00:00:00:02"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect = `{"result":"reject"}`
+	assert.Equal(t, expect, res)
 }
