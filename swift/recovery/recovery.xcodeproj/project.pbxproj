@@ -13,6 +13,7 @@
 		E9064CE92570F4C0001ACFE8 /* UserMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */; };
 		E9064CEE2570F936001ACFE8 /* EnterRoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9064CED2570F936001ACFE8 /* EnterRoomListView.swift */; };
 		E9AE33342571781F00B87F13 /* AccountRegTempDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE33332571781F00B87F13 /* AccountRegTempDeviceView.swift */; };
+		E9AE333925717A9200B87F13 /* AccountRegCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE333825717A9200B87F13 /* AccountRegCardView.swift */; };
 		E9AE80582570C2D600FEBE4C /* recoveryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE80572570C2D600FEBE4C /* recoveryApp.swift */; };
 		E9AE805A2570C2D600FEBE4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AE80592570C2D600FEBE4C /* ContentView.swift */; };
 		E9AE805C2570C2D800FEBE4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9AE805B2570C2D800FEBE4C /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		E9064CE82570F4C0001ACFE8 /* UserMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMenuView.swift; sourceTree = "<group>"; };
 		E9064CED2570F936001ACFE8 /* EnterRoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterRoomListView.swift; sourceTree = "<group>"; };
 		E9AE33332571781F00B87F13 /* AccountRegTempDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRegTempDeviceView.swift; sourceTree = "<group>"; };
+		E9AE333825717A9200B87F13 /* AccountRegCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRegCardView.swift; sourceTree = "<group>"; };
 		E9AE80542570C2D600FEBE4C /* recovery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = recovery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9AE80572570C2D600FEBE4C /* recoveryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recoveryApp.swift; sourceTree = "<group>"; };
 		E9AE80592570C2D600FEBE4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				E900281125716EA20043F5E3 /* AccountMenuView.swift */,
 				E9AE33332571781F00B87F13 /* AccountRegTempDeviceView.swift */,
+				E9AE333825717A9200B87F13 /* AccountRegCardView.swift */,
 			);
 			path = AccountMenu;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9AE333925717A9200B87F13 /* AccountRegCardView.swift in Sources */,
 				E90027FD25716D680043F5E3 /* TempLogView.swift in Sources */,
 				E900281225716EA20043F5E3 /* AccountMenuView.swift in Sources */,
 				E9064CEE2570F936001ACFE8 /* EnterRoomListView.swift in Sources */,

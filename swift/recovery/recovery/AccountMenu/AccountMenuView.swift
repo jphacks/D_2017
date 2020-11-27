@@ -14,7 +14,7 @@ struct AccountMenuView: View {
                 NavigationLink(destination: AccountRegTempDeviceView()) {
                     Text("検温デバイス設定")
                 }
-                NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
+                NavigationLink(destination: AccountRegCardView()) {
                     Text("ICカード登録")
                 }
                 NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
