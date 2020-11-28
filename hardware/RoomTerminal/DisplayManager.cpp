@@ -120,7 +120,7 @@ void DisplayManager::DrawAsking(char *idm)
     {
         u8g2->setCursor(16, 15);
         u8g2->print("問い合わせ中");
-        u8g2->setCursor(8, 31);
+        u8g2->setCursor(0, 31);
         u8g2->print(idm);
     } while (u8g2->nextPage());
 }
