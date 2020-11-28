@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/jphacks/D_2017/repository"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/jphacks/D_2017/model"
 )
@@ -18,9 +19,33 @@ func (cardRepository *mockCardRepository) DeleteByIDm(IDm string) error {
 	return nil
 }
 func (cardRepository *mockCardRepository) SelectByIDm(IDm string) (*model.Card, error) {
+	//駄目カード
+	if IDm == "0000000000000000" {
+		return &model.Card{
+			IDm:    IDm,
+			UserID: "reject-user",
+		}, nil
+	}
+
+	//退室カード
+	if IDm == "0000000000000002" {
+		return &model.Card{
+			IDm:    IDm,
+			UserID: "exit-user",
+		}, nil
+	}
+
+	// 15日分のログがるカード
+	if IDm == "0000000000000003" {
+		return &model.Card{
+			IDm:    IDm,
+			UserID: "fullLog-user",
+		}, nil
+	}
+
 	return &model.Card{
-		IDm:    "0000000000000000",
-		UserID: "test-user",
+		IDm:    "0000000000000001",
+		UserID: "ok-user",
 	}, nil
 }
 func newMockCardRepository() repository.CardRepositoryInterface {
@@ -40,19 +65,24 @@ func (r *mockRoomRepository) Update(*model.Room) (*model.Room, error) {
 	return nil, nil
 }
 
-func (r *mockRoomRepository) SelectByID(int) (*model.Room, error) {
+func (r *mockRoomRepository) SelectByID(roomID int) (*model.Room, error) {
+	limit := 2
+	if roomID == 44 {
+		limit = 0
+	}
+
 	return &model.Room{
-		RoomID:               42,
+		RoomID:               roomID,
 		Name:                 "room1",
-		LimitNumber:          2,
+		LimitNumber:          limit,
 		LimitBodyTemperature: 37.0,
-		AllowMissing:         true,
+		AllowMissing:         roomID != 43,
 	}, nil
 }
 
 type mockReaderRepository struct{}
 
-func newMcokReaderRepository() repository.ReaderRepositoryInterface {
+func newMockReaderRepository() repository.ReaderRepositoryInterface {
 	return &mockReaderRepository{}
 }
 func (r *mockReaderRepository) Insert(*model.Reader) (*model.Reader, error) {
@@ -65,10 +95,19 @@ func (r *mockReaderRepository) SelectByRoomID(int) (*[]model.Reader, error) {
 	return nil, nil
 }
 func (r *mockReaderRepository) SelectByMACAddress(macAddress string) (*model.Reader, error) {
+	var roomID int
+	if macAddress == "00:00:00:00:00" {
+		roomID = 42
+	} else if macAddress == "00:00:00:00:01" {
+		roomID = 43
+	} else {
+		roomID = 44
+	}
+
 	return &model.Reader{
-		MACAddress: "0000000000000000",
-		UserID:     "test-user",
-		RoomID:     42,
+		MACAddress: macAddress,
+		UserID:     "admin",
+		RoomID:     roomID,
 	}, nil
 }
 
@@ -90,39 +129,141 @@ func (m *mockBodyTemperatureRepository) SelectByUserID(string, int, int) (*[]mod
 	return nil, nil
 }
 func (m *mockBodyTemperatureRepository) SelectByUserIDBetween(userID string, since time.Time, until time.Time) (*[]model.BodyTemperature, error) {
-	var array [3]model.BodyTemperature
-	times := [3]time.Time{
-		time.Date(2014, time.December, 31, 12, 15, 24, 0, time.UTC),
-		time.Date(2014, time.December, 31, 12, 14, 24, 0, time.UTC),
-		time.Date(2014, time.December, 31, 12, 13, 24, 0, time.UTC),
+	var array [15]model.BodyTemperature
+	timeBase := time.Date(2014, time.December, 31-14, 12, 13, 24, 0, time.UTC)
+
+	var idSince int
+	var temperature float32
+	if userID != "reject-user" {
+		idSince = 42
+		temperature = 36.0
+	} else {
+		idSince = 21
+		temperature = 38.0
 	}
-	array[0] = model.BodyTemperature{
-		ID:          42,
-		UserID:      "test-user",
-		Temperature: 36.5,
-		MACAddress:  "00:00:00:00:00",
-		IsTrusted:   true,
-		CreatedAt:   &times[0],
+
+	for i := 0; i < 15; i++ {
+		time := timeBase.AddDate(0, 0, i)
+		array[i] = model.BodyTemperature{
+			ID:          idSince + i,
+			UserID:      userID,
+			Temperature: temperature,
+			MACAddress:  "00:00:00:00:00",
+			IsTrusted:   true,
+			CreatedAt:   &time,
+		}
 	}
-	array[1] = model.BodyTemperature{
-		ID:          43,
-		UserID:      "test-user",
-		Temperature: 36.3,
-		MACAddress:  "00:00:00:00:00",
-		IsTrusted:   true,
-		CreatedAt:   &times[1],
-	}
-	array[2] = model.BodyTemperature{
-		ID:          44,
-		UserID:      "test-user",
-		Temperature: 36.6,
-		MACAddress:  "00:00:00:00:00",
-		IsTrusted:   true,
-		CreatedAt:   &times[2],
-	}
+
 	res := array[:]
+	if userID != "fullLog-user" {
+		res = array[12:]
+	}
 	return &res, nil
 }
 
+type mockLogRepository struct{}
+
+func newMockLogRepository() repository.LogRepositoryInterface {
+	return &mockLogRepository{}
+}
+func (r *mockLogRepository) Insert(log *model.Log) (*model.Log, error) {
+	return &model.Log{
+		ID:        42,
+		UserID:    log.UserID,
+		RoomID:    log.RoomID,
+		EnteredAt: log.EnteredAt,
+	}, nil
+}
+func (r *mockLogRepository) SelectByID(int) (*model.Log, error) {
+	return nil, nil
+}
+func (r *mockLogRepository) SelectByUserIDAndRoomID(string, int) (*[]model.Log, error) {
+	return nil, nil
+}
+func (r *mockLogRepository) SelectByRoomID(int) (*[]model.Log, error) {
+	return nil, nil
+}
+
+func (r *mockLogRepository) SelectEnteringByRoomID(roomID int) (*[]model.Log, error) {
+	var result []model.Log
+	time := time.Date(2014, time.December, 31, 12, 13, 24, 0, time.UTC)
+	result = append(result, model.Log{
+		ID:        1,
+		UserID:    "exit-user",
+		RoomID:    42,
+		EnteredAt: &time,
+	})
+	return &result, nil
+}
+func (r *mockLogRepository) UpdateLeftAtByID(id int, LeftAt time.Time) (*model.Log, error) {
+	enter := time.Date(2014, time.December, 31, 12, 13, 24, 0, time.UTC)
+	log := model.Log{
+		ID:        id,
+		UserID:    "exit-user",
+		RoomID:    42,
+		EnteredAt: &enter,
+		LeftAt:    &LeftAt,
+	}
+	return &log, nil
+}
+
 func TestHandle(t *testing.T) {
+	logic := newTouchLogic(newMockLogRepository(), newMockReaderRepository(), newMockCardRepository(), newMockRoomRepository(), newMockBodyTemperatureRepository())
+
+	//体温が高いので入室できなかった
+	var unixtime int64 = 1420029024
+	idm := "0000000000000000"
+	macAddress := "00:00:00:00:00"
+	res, err := logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect := `{"result":"reject"}`
+	assert.Equal(t, expect, res)
+
+	//入室できた
+	idm = "0000000000000001"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect = `{"result":"accept"}`
+	assert.Equal(t, expect, res)
+
+	//退室
+	idm = "0000000000000002"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect = `{"result":"exit"}`
+	assert.Equal(t, expect, res)
+
+	// 2週間分無いと死ぬ部屋からrejectされた
+	macAddress = "00:00:00:00:01"
+	idm = "0000000000000001"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect = `{"result":"reject"}`
+	assert.Equal(t, expect, res)
+
+	// 2週間分のログがあったので入れた
+	idm = "0000000000000003"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect = `{"result":"accept"}`
+	assert.Equal(t, expect, res)
+
+	// 人数が一杯でrejectされた
+	macAddress = "00:00:00:00:02"
+	res, err = logic.handle(unixtime, idm, macAddress)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect = `{"result":"reject"}`
+	assert.Equal(t, expect, res)
 }

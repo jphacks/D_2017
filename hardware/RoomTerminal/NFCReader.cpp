@@ -76,7 +76,7 @@ bool NFCReader::readIDmFromCard(char *str_idm)
   int len = sizeof(buf) / sizeof(buf[0]);
 
   snprintf(str_idm, IDM_MAX_LENGTH + 1,
-           "%02x%02x%02x%02x%02x%02x%02x",
+           "%02x%02x%02x%02x%02x%02x%02x%02x",
            uid[0], uid[1], uid[2], uid[3], uid[4], uid[5], uid[6], uid[7]);
 
   return true;
